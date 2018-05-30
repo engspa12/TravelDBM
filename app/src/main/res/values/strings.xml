@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TravelDBM</string>
+    <string name="positive_button">Close</string>
+    <string name="negative_button">Close</string>
+    <string name="csv_file_not_found">The specified file was not found</string>
+    <string name="search_description_text">Start searching your hotels using the magnifying glass button or click on the menu item to show favorites</string>
+    <string name="show_favorites_menu_Text">Show Favorites</string>
+    <string name="search_hotels_title">Search Hotels</string>
+    <string name="city_name_text">City Name:</string>
+    <string name="enter_city_name_hint">Enter City Name</string>
+    <string name="number_of_stars_text">Number of stars:</string>
+    <string name="clarification_one">* Value must be between 2 and 5</string>
+    <string name="clarification_two">* In case you want all the hotels without considering rating, enter a \'-\'</string>
+    <string name="enter_stars_hint">3</string>
+    <string name="search_hotels_button_text">Search Hotels</string>
+    <string name="city_input_validation">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+</resources>
