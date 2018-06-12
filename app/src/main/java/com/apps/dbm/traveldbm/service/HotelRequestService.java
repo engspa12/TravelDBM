@@ -61,9 +61,13 @@ public class HotelRequestService extends IntentService {
     private String checkInDate;
     private String checkOutDate;
 
+    private String tempUrl;
+
     //private String city;
 
     private boolean isHotelGeneralInformation;
+
+    private int counterTry;
 
     public HotelRequestService() {
         super("HotelRequestService");
@@ -72,6 +76,7 @@ public class HotelRequestService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
+        counterTry = 0;
         mRequestQueue = Volley.newRequestQueue(this);
         if (intent != null){
             String queryAction = intent.getAction();
@@ -104,6 +109,8 @@ public class HotelRequestService extends IntentService {
     }
 
     public void getDataFromHttpUrlUsingJSON(String url){
+
+        tempUrl = url;
 
         if(listOfHotels != null) {
             listOfHotels.clear();
@@ -245,6 +252,13 @@ public class HotelRequestService extends IntentService {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(LOG,"There was an error while retrieving the data");
+                        counterTry++;
+                        if(counterTry <= 3) {
+                            getDataFromHttpUrlUsingJSON(tempUrl);
+                        } else{
+                            sendErrorMessage();
+                        }
+
                     }
                 });
 
@@ -264,6 +278,12 @@ public class HotelRequestService extends IntentService {
         }
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+    public void sendErrorMessage(){
+        Intent errorIntent = new Intent(BROADCAST_ACTION);
+        errorIntent.putExtra("error_server", "There is a problem with the server right now, please try again later");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(errorIntent);
     }
 
     public URL buildUrl(String latitude, String longitude, String checkIn, String checkOut){

@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +61,17 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Toolbar myChildToolbar =
+                (Toolbar) findViewById(R.id.my_child_toolbar);
+        setSupportActionBar(myChildToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         if(intent.hasExtra("room_list")){
@@ -69,6 +81,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             longitudeHotel = Double.valueOf(hotel.getHotelLongitude());
         }
 
+        //setTitle(hotel.getHotelName());
         setTitle(hotel.getHotelName());
 
         scrollView = (NestedScrollView) findViewById(R.id.scroll_view_details);
@@ -156,18 +169,20 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             hotelPhoneTV.setText("Phone: " + hotel.getHotelPhone());
             hotelServicesTV.setText(hotel.getHotelAmenities());
             hotelNameTV.setText(hotel.getHotelName());
-            if(hotel.getHotelURL() != null) {
+        if(hotel.getHotelURL() != null) {
+            if (!(hotel.getHotelURL().isEmpty())) {
                 String website = hotel.getHotelURL();
-                if(website.contains("http")){
+                if (website.contains("http")) {
                     hotelWebsiteTV.setText(hotel.getHotelURL());
-                } else{
+                } else {
                     hotelWebsiteTV.setText("http://" + hotel.getHotelURL());
                 }
                 hotelWebsiteButton.setVisibility(View.VISIBLE);
-            } else{
+            } else {
                 hotelWebsiteTV.setText("This hotel does not have a website yet.");
                 hotelWebsiteButton.setVisibility(View.GONE);
             }
+        }
 
 
         RecyclerView recyclerViewRooms = (RecyclerView) findViewById(R.id.recycler_view_rooms);

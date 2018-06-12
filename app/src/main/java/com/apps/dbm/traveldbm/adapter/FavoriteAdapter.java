@@ -34,17 +34,25 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private Context mContext;
 
-    private UpdateWidgetsItemsListener mlistener;
+    private UpdateWidgetsItemsListener mWidgetlistener;
+
+    private OnGridOnClickListener mGridListener;
 
     public interface UpdateWidgetsItemsListener{
         void updateWidgets();
     }
 
-    public FavoriteAdapter(int numberOfFavorites, List<Favorite> list, Context context,UpdateWidgetsItemsListener listener) {
+    public interface OnGridOnClickListener{
+        void onGridClick(int positionItem);
+    }
+
+    public FavoriteAdapter(int numberOfFavorites, List<Favorite> list, Context context,
+                           UpdateWidgetsItemsListener listener,OnGridOnClickListener gridListener) {
         listFavorites = list;
         totalItems = numberOfFavorites;
         mContext = context;
-        mlistener = listener;
+        mGridListener = gridListener;
+        mWidgetlistener = listener;
     }
 
 
@@ -73,7 +81,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return totalItems;
     }
 
-    public class FavoriteViewHolder extends RecyclerView.ViewHolder {
+
+    public class FavoriteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         FrameLayout container;
 
@@ -108,7 +117,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             favoritePhoneTV = (TextView) itemView.findViewById(R.id.favorite_phone);
             favoriteLocationTV = (TextView) itemView.findViewById(R.id.favorite_location);
             deleteFavoriteButton = (Button) itemView.findViewById(R.id.delete_favorite_button);
-
+            itemView.setOnClickListener(this);
         }
 
         public void bind(final int listIndex) {
@@ -124,9 +133,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                     String propertyCodeFavorite = listFavorites.get(listIndex).getFavoritePropertyCode();
                     Uri wantedUri = Uri.withAppendedPath(CollectionContract.CollectionEntry.CONTENT_URI, propertyCodeFavorite);
                     mContext.getContentResolver().delete(wantedUri, null, null);
-                    mlistener.updateWidgets();
+                    mWidgetlistener.updateWidgets();
                 }
             });
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            mGridListener.onGridClick(position);
         }
     }
 }

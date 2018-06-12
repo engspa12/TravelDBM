@@ -13,10 +13,12 @@ import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -65,7 +67,19 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_results);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //setTitle("Hotel Results");
+
+        Toolbar myChildToolbar =
+                (Toolbar) findViewById(R.id.my_child_toolbar);
+        setSupportActionBar(myChildToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
         setTitle("Hotel Results");
 
@@ -130,10 +144,18 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
                 ContentValues values = new ContentValues();
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE, listHotels.get(clickedItemIndex).getHotelPropertyCode());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_NAME, listHotels.get(clickedItemIndex).getHotelName());
+                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_LATITUDE, listHotels.get(clickedItemIndex).getHotelLatitude());
+                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_LONGITUDE, listHotels.get(clickedItemIndex).getHotelLongitude());
+                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS, listHotels.get(clickedItemIndex).getHotelAddress());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_CITY, listHotels.get(clickedItemIndex).getHotelCity());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY, listHotels.get(clickedItemIndex).getHotelCountry());
-                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS, listHotels.get(clickedItemIndex).getHotelAddress());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE, listHotels.get(clickedItemIndex).getHotelPhone());
+                if(listHotels.get(clickedItemIndex).getHotelURL() != null) {
+                    values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_URL, listHotels.get(clickedItemIndex).getHotelURL());
+                } else{
+                    values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_URL,"");
+                }
+                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_AMENITIES, listHotels.get(clickedItemIndex).getHotelAmenities());
 
                 getContentResolver().insert(CollectionContract.CollectionEntry.CONTENT_URI, values);
 

@@ -13,10 +13,14 @@ public class CollectionDbHelper extends SQLiteOpenHelper {
             CollectionContract.CollectionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_NAME + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_LATITUDE + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_LONGITUDE + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_CITY + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY + " TEXT NOT NULL," +
-            CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS + " TEXT NOT NULL," +
-            CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE + " TEXT NOT NULL)";
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_URL + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_AMENITIES + " TEXT NOT NULL)";
     //+
     //CollectionContract.CollectionEntry.COLUMN_MOVIE_SYNOPSIS + " TEXT NOT NULL," +
     //CollectionContract.CollectionEntry.COLUMN_SAVED_MOVIE_IMAGE + " BLOB)";

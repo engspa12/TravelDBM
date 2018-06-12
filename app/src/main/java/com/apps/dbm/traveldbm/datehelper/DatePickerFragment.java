@@ -10,8 +10,7 @@ import android.widget.DatePicker;
 
 import java.util.Calendar;
 
-public class DatePickerFragment extends DialogFragment
-        implements DatePickerDialog.OnDateSetListener {
+public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     private DateListener mCallback;
 
@@ -63,12 +62,8 @@ public class DatePickerFragment extends DialogFragment
         return datePickerDialog;
     }
 
-
-
+    @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        //Do something with the date chosen by the user
-        //TextView checkInTextView = (TextView) getActivity().findViewById(R.id.check_in_text_view);
-        //checkInTextView.setText(day + " " + month + " " + year);
         if(month < 9) {
             if(day < 10) {
                 mCallback.setDate("0" + day + "-0" + (month + 1) + "-" + year,day,month+1,year);
@@ -80,8 +75,9 @@ public class DatePickerFragment extends DialogFragment
                 mCallback.setDate("0" + day + "-" + (month + 1) + "-" + year,day,month+1,year);
             } else{
                 mCallback.setDate(day + "-" + (month + 1) + "-" + year,day,month+1,year);
-           }
+            }
         }
-
     }
+
+
 }

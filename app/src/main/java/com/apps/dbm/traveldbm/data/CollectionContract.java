@@ -29,9 +29,13 @@ public class CollectionContract {
         public final static String _ID = BaseColumns._ID;
         public final static String COLUMN_HOTEL_PROPERTY_CODE = "hotel_property_code";
         public final static String COLUMN_HOTEL_NAME = "hotel_name";
+        public final static String COLUMN_HOTEL_LATITUDE = "hotel_latitude";
+        public final static String COLUMN_HOTEL_LONGITUDE = "hotel_longitude";
+        public final static String COLUMN_HOTEL_ADDRESS = "hotel_address";
         public final static String COLUMN_HOTEL_CITY = "hotel_city";
         public final static String COLUMN_HOTEL_COUNTRY = "hotel_country";
-        public final static String COLUMN_HOTEL_ADDRESS = "hotel_address";
         public final static String COLUMN_HOTEL_PHONE = "hotel_phone";
+        public final static String COLUMN_HOTEL_URL = "hotel_url";
+        public final static String COLUMN_HOTEL_AMENITIES = "hotel_amenities";
     }
 }

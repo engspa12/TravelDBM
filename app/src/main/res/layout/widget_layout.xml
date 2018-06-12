@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin">
 
     <TextView
-        android:gravity="center"
-        android:textStyle="italic"
+        android:id="@+id/widget_title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="8dp"
         android:textColor="#FFFFFF"
         android:textSize="32sp"
-        android:padding="8dp"
-        android:id="@+id/widget_title_text_view"
-        tools:text = "Favorite Hotels"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:textStyle="italic"
+        tools:text="Favorite Hotels" />
 
     <ListView
         android:id="@+id/widget_list_view"
-        android:divider="@null"
-        android:dividerHeight="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
 
 
 </LinearLayout>

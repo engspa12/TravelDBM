@@ -26,17 +26,20 @@ public class Hotel implements Parcelable {
     private String hotelCheckOutDate;
 
 
-    public Hotel(String propertyCode,String name,String latitude,String longitude,String address,String minPrice,
-                 //List<Bitmap> photos,
-                 //List<Room> rooms,
+    public Hotel(String propertyCode,
+                 String name,
+                 String latitude,
+                 String longitude,
+                 String address,
+                 String minPrice,
                  String city,
                  String country,
-                 //List<Review> reviews,
                  String phone,
                  String url,
                  String amenities,
                  String checkInDate,
                  String checkOutDate){
+
         hotelPropertyCode = propertyCode;
         hotelName = name;
         hotelLatitude = latitude;

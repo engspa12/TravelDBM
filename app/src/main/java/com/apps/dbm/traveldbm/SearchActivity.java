@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 
 import com.apps.dbm.traveldbm.classes.City;
 import com.apps.dbm.traveldbm.classes.Hotel;
+import com.apps.dbm.traveldbm.classes.Room;
 import com.apps.dbm.traveldbm.datehelper.DatePickerFragment;
 import com.apps.dbm.traveldbm.service.HotelRequestService;
 import com.google.android.gms.ads.AdListener;
@@ -83,16 +87,78 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
     private InterstitialAd mInterstitialAd;
 
+    private TextView doublePurposeTextView;
+
+    private boolean isNewSearch;
+
+    private String propertyCodeFav;
+
+    private Hotel hotelFav;
+
+    private TextView errorServerTextView;
+
+    private Button searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Toolbar myChildToolbar =
+                (Toolbar) findViewById(R.id.my_child_toolbar);
+        setSupportActionBar(myChildToolbar);
+
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
         setTitle(getString(R.string.search_hotels_title));
 
+        Intent intent = getIntent();
+        //Bundle bundle = intent.getExtras();
+
         cityEditText = (EditText) findViewById(R.id.edit_text_city);
+        doublePurposeTextView = (TextView) findViewById(R.id.double_purpose_text_view);
+        errorServerTextView = (TextView) findViewById(R.id.error_server_text_view);
+        errorServerTextView.setVisibility(View.GONE);
+        searchButton = (Button) findViewById(R.id.search_button);
+
+        validCityEntered = false;
+
+        if(intent.hasExtra("favorite_property_code")){
+            propertyCodeFav = intent.getStringExtra("favorite_property_code");
+            String favName = intent.getStringExtra("favorite_name");
+            hotelFav = new Hotel(propertyCodeFav,
+                    favName,
+                    intent.getStringExtra("favorite_latitude"),
+                    intent.getStringExtra("favorite_longitude"),
+                    intent.getStringExtra("favorite_address"),
+                    null,
+                    intent.getStringExtra("favorite_city"),
+                    intent.getStringExtra("favorite_country"),
+                    intent.getStringExtra("favorite_phone"),
+                    intent.getStringExtra("favorite_url"),
+                    intent.getStringExtra("favorite_amenities"),null,null);
+
+            city = intent.getStringExtra("favorite_city");
+            validCityEntered = true;
+            cityEditText.setVisibility(View.GONE);
+            doublePurposeTextView.setText("Hotel Name: " + favName);
+            searchButton.setText("Check Hotel Details");
+            isNewSearch = false;
+        } else if(intent.hasExtra("favorite_property_code_another")) {
+            String favoritePropertyCode = intent.getStringExtra("hotel_property_code_favorite");
+            cityEditText.setVisibility(View.GONE);
+            doublePurposeTextView.setText("Favorite: " + favoritePropertyCode);
+            isNewSearch = false;
+        } else {
+            cityEditText.setVisibility(View.VISIBLE);
+            isNewSearch = true;
+        }
 
         linearLayout = (LinearLayout) findViewById(R.id.linear_layout_container);
         linearLayout.setVisibility(View.GONE);
@@ -100,21 +166,33 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
-        validCityEntered = false;
+
 
         getCitiesList();
 
-        Button searchButton = (Button) findViewById(R.id.search_button);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //String city = cityEditText.getText().toString().trim();
-                city = cityEditText.getText().toString().trim();
-                if (checkInput(city)) {
-                    if (mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
-                    } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                if (isNewSearch) {
+                    city = cityEditText.getText().toString().trim();
+                    if (checkInput(city)) {
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show();
+                        } else {
+                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        }
+                    }
+                } else{
+                    if(checkAdditionalData()) {
+                        Intent serviceIntent = new Intent(SearchActivity.this, HotelRequestService.class);
+                        serviceIntent.setAction("rooms_data");
+                        serviceIntent.putExtra("hotel_property_code",propertyCodeFav);
+                        serviceIntent.putExtra("check_in_date", checkInDateInput);
+                        serviceIntent.putExtra("check_out_date", checkOutDateInput);
+                        startService(serviceIntent);
+                        progressBar.setVisibility(View.VISIBLE);
+                        linearLayout.setVisibility(View.GONE);
                     }
                 }
             }
@@ -170,7 +248,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
             @Override
             public void onAdClosed() {
-                // Code to be executed when when the interstitial ad is closed.
+                // Code to be executed when the interstitial ad is closed.
                 Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
                 intent.setAction("hotel_general_data");
                 intent.putExtra("city_name",city);
@@ -280,22 +358,13 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                                 validCityEntered = true;
                                 cityLat = listCitiesDuplicated.get(which).getCityLatitude();
                                 cityLong = listCitiesDuplicated.get(which).getCityLongitude();
-                                String city = cityEditText.getText().toString().trim();
+                                //String city = cityEditText.getText().toString().trim();
                                 if (checkAdditionalData()) {
                                     if (mInterstitialAd.isLoaded()) {
                                         mInterstitialAd.show();
                                     } else {
                                         Log.d("TAG", "The interstitial wasn't loaded yet.");
                                     }
-                                    //Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
-                                    //intent.setAction("hotel_general_data");
-                                    //intent.putExtra("city_latitude", cityLat);
-                                    //intent.putExtra("city_longitude", cityLong);
-                                    //intent.putExtra("check_in_date", checkInDateInput);
-                                    //intent.putExtra("check_out_date", checkOutDateInput);
-                                    //startService(intent);
-                                    //progressBar.setVisibility(View.VISIBLE);
-                                    //linearLayout.setVisibility(View.GONE);
                                 }
 
                             }
@@ -345,12 +414,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -423,12 +486,26 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     private class MyResponseReceiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {
-            List<Hotel> hotelResultsList = intent.getParcelableArrayListExtra("hotel_list");
-            progressBar.setVisibility(View.GONE);
-            linearLayout.setVisibility(View.VISIBLE);
-            Intent intentResults = new Intent(SearchActivity.this,HotelResultsActivity.class);
-            intentResults.putExtra("hotel_list",(ArrayList<Hotel>) hotelResultsList);
-            startActivity(intentResults);
+            if(intent.hasExtra("hotel_list")) {
+                List<Hotel> hotelResultsList = intent.getParcelableArrayListExtra("hotel_list");
+                progressBar.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
+                Intent intentResults = new Intent(SearchActivity.this, HotelResultsActivity.class);
+                intentResults.putExtra("hotel_list", (ArrayList<Hotel>) hotelResultsList);
+                startActivity(intentResults);
+            } else if (intent.hasExtra("room_list") && !isNewSearch){
+                List<Room> roomList = intent.getParcelableArrayListExtra("room_list");
+                progressBar.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
+                Intent intentDetail = new Intent(SearchActivity.this, HotelDetailActivity.class);
+                intentDetail.putExtra("hotel_selected",hotelFav);
+                intentDetail.putExtra("room_list",(ArrayList<Room>) roomList);
+                startActivity(intentDetail);
+            } else if(intent.hasExtra("error_server")){
+                progressBar.setVisibility(View.GONE);
+                errorServerTextView.setVisibility(View.VISIBLE);
+                errorServerTextView.setText(intent.getStringExtra("error_server"));
+            }
         }
     }
 }
