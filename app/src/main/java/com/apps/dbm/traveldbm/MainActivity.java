@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,11 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fabButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         fabButton = (FloatingActionButton) findViewById(R.id.search_fab_button);
         fabButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
 
     }
 
@@ -82,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId){
             case R.id.show_favorites:
-                Toast.makeText(this,"Testing menu item",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"Testing menu item",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,FavoritesActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

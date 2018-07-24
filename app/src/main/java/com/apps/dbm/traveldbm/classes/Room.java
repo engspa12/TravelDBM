@@ -14,21 +14,23 @@ public class Room implements Parcelable {
     //private String roomType;
     //private String roomNumberOfBeds;
     //private String roomBedType;
+    private String roomCode;
 
 
     public Room(String description,
                 //List<Bitmap> photos,
-                String price
+                String price,
             //, String typeOfRoom
             //, String numberOfBeds
             //, String bedType
-                ){
+                String code){
         roomDescription = description;
         //roomPhotos = photos;
         roomPrice = price;
         //roomType = typeOfRoom;
         //roomNumberOfBeds = numberOfBeds;
         //roomBedType = bedType;
+        roomCode = code;
     }
 
     private Room(Parcel in) {
@@ -37,6 +39,7 @@ public class Room implements Parcelable {
         //roomType = in.readString();
         //roomNumberOfBeds = in.readString();
         //roomBedType = in.readString();
+        roomCode = in.readString();
     }
 
 
@@ -62,6 +65,7 @@ public class Room implements Parcelable {
         //out.writeString(roomType);
         //out.writeString(roomNumberOfBeds);
         //out.writeString(roomBedType);
+        out.writeString(roomCode);
     }
 
     public String getRoomDescription(){
@@ -74,7 +78,9 @@ public class Room implements Parcelable {
 
     //public String getRoomType(){return roomType;}
 
-    //private String getRoomNumberOfBeds(){return roomNumberOfBeds; }
+    //public String getRoomNumberOfBeds(){return roomNumberOfBeds; }
 
-    //private String getRoomBedType(){return roomBedType;}
+    //public String getRoomBedType(){return roomBedType;}
+
+    public String getRoomCode(){return roomCode;}
 }

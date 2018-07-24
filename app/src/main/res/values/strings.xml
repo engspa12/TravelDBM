@@ -26,6 +26,14 @@
     <string name="services_photo_content_description">Services Photo</string>
     <string name="location_in_map_text">Location in Map</string>
     <string name="rooms_text">Rooms</string>
-    <string name="services_text">Services</string>
+    <string name="amenities_text">Amenities</string>
     <string name="website_example"><u>https://www.booking.com/</u></string>
+    <string name="description_text">Description</string>
+    <string name="website_text">Website</string>
+    <string name="go_to_website_button_text">Go to website</string>
+    <string name="no_rooms_message">This hotel does not show room information. Please use contact details shown above or click on the link at the end of this screen to see rooms.</string>
+    <string name="favorite_item_content_description">favorite_item</string>
+    <string name="delete_favorite_button_text">Delete Favorite</string>
+    <string name="no_favorites_message">You do not have any favorites yet, please add some favorites after searching hotels</string>
+    <string name="no_favorites_widget_message">You do not have favorite hotels yet</string>
 </resources>

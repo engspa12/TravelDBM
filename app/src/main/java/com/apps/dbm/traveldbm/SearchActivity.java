@@ -25,6 +25,10 @@ import com.apps.dbm.traveldbm.classes.City;
 import com.apps.dbm.traveldbm.classes.Hotel;
 import com.apps.dbm.traveldbm.datehelper.DatePickerFragment;
 import com.apps.dbm.traveldbm.service.HotelRequestService;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.opencsv.CSVReader;
 
 import java.io.InputStreamReader;
@@ -75,14 +79,18 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
     private boolean isCheckIn;
 
+    private String city;
+
+    private InterstitialAd mInterstitialAd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        setTitle(getString(R.string.search_hotels_title));
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        setTitle(getString(R.string.search_hotels_title));
 
         cityEditText = (EditText) findViewById(R.id.edit_text_city);
 
@@ -100,18 +108,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String city = cityEditText.getText().toString().trim();
+                //String city = cityEditText.getText().toString().trim();
+                city = cityEditText.getText().toString().trim();
                 if (checkInput(city)) {
-                        Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
-                        //intent.putExtra("city_name", city);
-                        intent.setAction("hotel_general_data");
-                        intent.putExtra("city_latitude", cityLat);
-                        intent.putExtra("city_longitude", cityLong);
-                        intent.putExtra("check_in_date", checkInDateInput);
-                        intent.putExtra("check_out_date", checkOutDateInput);
-                        startService(intent);
-                        progressBar.setVisibility(View.VISIBLE);
-                        linearLayout.setVisibility(View.GONE);
+                    if (mInterstitialAd.isLoaded()) {
+                        mInterstitialAd.show();
+                    } else {
+                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    }
                 }
             }
         });
@@ -135,6 +139,48 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 isCheckIn = false;
                 DialogFragment newFragment = DatePickerFragment.newInstance(isCheckIn);
                 newFragment.show(getSupportFragmentManager(), "datePickerCheckOut");
+            }
+        });
+
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the interstitial ad is closed.
+                Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
+                intent.setAction("hotel_general_data");
+                intent.putExtra("city_name",city);
+                intent.putExtra("city_latitude", cityLat);
+                intent.putExtra("city_longitude", cityLong);
+                intent.putExtra("check_in_date", checkInDateInput);
+                intent.putExtra("check_out_date", checkOutDateInput);
+                startService(intent);
+                progressBar.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.GONE);
             }
         });
     }
@@ -236,16 +282,20 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                                 cityLong = listCitiesDuplicated.get(which).getCityLongitude();
                                 String city = cityEditText.getText().toString().trim();
                                 if (checkAdditionalData()) {
-                                    Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
-                                    //intent.putExtra("city_name", city);
-                                    intent.setAction("hotel_general_data");
-                                    intent.putExtra("city_latitude", cityLat);
-                                    intent.putExtra("city_longitude", cityLong);
-                                    intent.putExtra("check_in_date", checkInDateInput);
-                                    intent.putExtra("check_out_date", checkOutDateInput);
-                                    startService(intent);
-                                    progressBar.setVisibility(View.VISIBLE);
-                                    linearLayout.setVisibility(View.GONE);
+                                    if (mInterstitialAd.isLoaded()) {
+                                        mInterstitialAd.show();
+                                    } else {
+                                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                    }
+                                    //Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
+                                    //intent.setAction("hotel_general_data");
+                                    //intent.putExtra("city_latitude", cityLat);
+                                    //intent.putExtra("city_longitude", cityLong);
+                                    //intent.putExtra("check_in_date", checkInDateInput);
+                                    //intent.putExtra("check_out_date", checkOutDateInput);
+                                    //startService(intent);
+                                    //progressBar.setVisibility(View.VISIBLE);
+                                    //linearLayout.setVisibility(View.GONE);
                                 }
 
                             }

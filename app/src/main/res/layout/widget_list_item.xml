@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#D1A1FF">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/favorite_backg" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:src="@drawable/gradient" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/widget_favorite_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="2"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            tools:text="Hotel Sheraton and Convention Center and Other Features" />
+
+        <LinearLayout
+            android:gravity="bottom"
+            android:paddingBottom="12dp"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/widget_favorite_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                tools:text="Address: 2880 Las Vegas Blvd South Las Vegas NV 89109 US" />
+
+            <TextView
+                android:id="@+id/widget_favorite_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                tools:text="Phone: +1 702 734-0410" />
+
+            <TextView
+                android:id="@+id/widget_favorite_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                tools:text="Location: Las Vegas - US" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

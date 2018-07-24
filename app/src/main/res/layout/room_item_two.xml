@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_margin="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#2399A2"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/room_code_text_view"
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            tools:text="Code: B2QPRO" />
+
+        <TextView
+            android:id="@+id/room_description_text_view"
+            android:textStyle="italic"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            tools:text="* Promotional Rate\n\n* MANOR QUEEN ROOM,2 QUEEN BEDS\n\n* 351 SQ FT, MANOR MOTOR LODGE NEXT TO PROPERTY" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_below="@id/container"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_weight="2"
+                android:id="@+id/room_illustration_img"
+                android:layout_marginLeft="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginBottom="12dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/services_photo_content_description"
+                android:src="@drawable/hotel_room" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:layout_weight="1.5"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/room_price_text_view"
+                android:textStyle="italic"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                tools:text="1764.15 USD" />
+        </LinearLayout>
+
+</RelativeLayout>

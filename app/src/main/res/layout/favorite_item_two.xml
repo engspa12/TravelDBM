@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        android:id="@+id/item_container"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/favorite_item_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fav_backg" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:background="@drawable/gradient" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/favorite_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_weight="1.7"
+                android:textColor="#FFFFFF"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                tools:text="Hotel Sheraton and Convention Center" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="bottom"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_weight="2.3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/favorite_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="Address: 2880 Las Vegas Blvd South Las Vegas NV 89109 US" />
+
+                <TextView
+                    android:id="@+id/favorite_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="Phone: +1 702 734-0410" />
+
+                <TextView
+                    android:id="@+id/favorite_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="Location: Las Vegas - US" />
+
+                <Button
+                    android:id="@+id/delete_favorite_button"
+                    android:layout_gravity="end"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textAllCaps="false"
+                    android:textSize="12sp"
+                    android:text="@string/delete_favorite_button_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+</FrameLayout>

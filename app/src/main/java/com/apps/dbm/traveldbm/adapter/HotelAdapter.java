@@ -16,6 +16,7 @@ import com.apps.dbm.traveldbm.classes.Hotel;
 import java.util.List;
 
 public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHolder>{
+
     private static final String LOG = HotelAdapter.class.getSimpleName();
 
     private int numberOfHotels;

@@ -61,6 +61,8 @@ public class HotelRequestService extends IntentService {
     private String checkInDate;
     private String checkOutDate;
 
+    //private String city;
+
     private boolean isHotelGeneralInformation;
 
     public HotelRequestService() {
@@ -74,6 +76,7 @@ public class HotelRequestService extends IntentService {
         if (intent != null){
             String queryAction = intent.getAction();
             //String queryAction = intent.getStringExtra("query_action");
+            //city = intent.getStringExtra("city_name");
             checkInDate = intent.getStringExtra("check_in_date");
             checkOutDate = intent.getStringExtra("check_out_date");
             if(queryAction.equals("hotel_general_data")) {
@@ -144,12 +147,14 @@ public class HotelRequestService extends IntentService {
                                         String region = addressObject.getString("region");
                                         address = addressObject.getString("line1")
                                                 + " " + addressObject.getString("city")
+                                                //+ " " + city
                                                 + " " + region
                                                 + " " + addressObject.getString("postal_code")
                                                 + " " + addressObject.getString("country");
                                     } catch (JSONException e) {
                                         address = addressObject.getString("line1")
                                                 + " " + addressObject.getString("city")
+                                                //+ " " + city
                                                 + " " + addressObject.getString("postal_code")
                                                 + " " + addressObject.getString("country");
                                     }
@@ -202,26 +207,32 @@ public class HotelRequestService extends IntentService {
                                 JSONArray rooms = response.getJSONArray("rooms");
                                 for(int i=0;i<rooms.length();i++) {
                                     JSONObject room = rooms.getJSONObject(i);
-                                    JSONObject priceRoomObject = room.getJSONObject("total_amount");
-                                    String priceRoom = priceRoomObject.getString("amount")
-                                            + " " + priceRoomObject.getString("currency");
-
                                     JSONArray roomDescriptionArray = room.getJSONArray("descriptions");
-                                    StringBuilder descriptionBuilder = new StringBuilder();
-                                    for(int j=0;j<roomDescriptionArray.length();j++){
-                                        String descriptionItem = roomDescriptionArray.getString(j);
-                                        descriptionBuilder.append("* ");
-                                        descriptionBuilder.append(descriptionItem);
-                                        descriptionBuilder.append("\n");
+                                    if(roomDescriptionArray.length() > 1) {
+                                        String roomCode = room.getString("booking_code");
+
+                                        JSONObject roomPriceObject = room.getJSONObject("total_amount");
+                                        String roomPrice = roomPriceObject.getString("amount")
+                                                + " " + roomPriceObject.getString("currency");
+
+
+                                        StringBuilder descriptionBuilder = new StringBuilder();
+                                        for (int j = 0; j < roomDescriptionArray.length(); j++) {
+                                            String descriptionItem = roomDescriptionArray.getString(j);
+                                            descriptionBuilder.append("* ");
+                                            descriptionBuilder.append(descriptionItem);
+                                            descriptionBuilder.append("\n\n");
+                                        }
+
+                                        if (descriptionBuilder.length() != 0) {
+                                            descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1);
+                                            descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1);
+                                        }
+
+                                        String roomDescription = descriptionBuilder.toString();
+
+                                        listOfRooms.add(new Room(roomDescription, roomPrice, roomCode));
                                     }
-
-                                    if (descriptionBuilder.length() != 0) {
-                                        descriptionBuilder.deleteCharAt(descriptionBuilder.length() - 1);
-                                    }
-
-                                    String roomDescription = descriptionBuilder.toString();
-
-                                    listOfRooms.add(new Room(roomDescription,priceRoom));
                                 }
                             } catch (JSONException e){
                                 Log.e(LOG, e.getMessage());

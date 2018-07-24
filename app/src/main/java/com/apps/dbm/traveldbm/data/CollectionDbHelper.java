@@ -11,11 +11,12 @@ public class CollectionDbHelper extends SQLiteOpenHelper {
 
     public static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + CollectionContract.CollectionEntry.TABLE_NAME + " (" +
             CollectionContract.CollectionEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            CollectionContract.CollectionEntry.COLUMN_HOTEL_ID + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_NAME + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_CITY + " TEXT NOT NULL," +
-            CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY + " REAL NOT NULL," +
-            CollectionContract.CollectionEntry.COLUMN_HOTEL_RATING + " TEXT NOT NULL)";
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS + " TEXT NOT NULL," +
+            CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE + " TEXT NOT NULL)";
     //+
     //CollectionContract.CollectionEntry.COLUMN_MOVIE_SYNOPSIS + " TEXT NOT NULL," +
     //CollectionContract.CollectionEntry.COLUMN_SAVED_MOVIE_IMAGE + " BLOB)";

@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class CollectionProvider extends ContentProvider {
 
     private static final int HOTELS = 100;
-    private static final int HOTEL_ID = 101;
+    private static final int HOTEL_PROPERTY_CODE = 101;
 
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
@@ -24,7 +24,8 @@ public class CollectionProvider extends ContentProvider {
                 CollectionContract.CONTENT_AUTHORITY,CollectionContract.PATH_HOTELS,HOTELS);
 
         sUriMatcher.addURI(
-                CollectionContract.CONTENT_AUTHORITY,CollectionContract.PATH_HOTELS + "/#",HOTEL_ID);
+                CollectionContract.CONTENT_AUTHORITY,CollectionContract.PATH_HOTELS + "/*",HOTEL_PROPERTY_CODE);
+
     }
 
     private CollectionDbHelper dbHelper;
@@ -48,10 +49,10 @@ public class CollectionProvider extends ContentProvider {
             case HOTELS:
                 cursor=database.query(CollectionContract.CollectionEntry.TABLE_NAME, projection, selection, selectionArgs,null,null,sortOrder);
                 break;
-            case HOTEL_ID:
+            case HOTEL_PROPERTY_CODE:
 
-                selection = CollectionContract.CollectionEntry.COLUMN_HOTEL_ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selection = CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE + "=?";
+                selectionArgs = new String[] { String.valueOf(uri.getPath().substring(8,uri.getPath().length())) };
 
                 cursor = database.query(CollectionContract.CollectionEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
@@ -72,7 +73,7 @@ public class CollectionProvider extends ContentProvider {
         switch (match) {
             case HOTELS:
                 return CollectionContract.CollectionEntry.CONTENT_LIST_TYPE;
-            case HOTEL_ID:
+            case HOTEL_PROPERTY_CODE:
                 return CollectionContract.CollectionEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
@@ -93,9 +94,9 @@ public class CollectionProvider extends ContentProvider {
 
     private Uri insertHotel(Uri uri, ContentValues values) {
 
-        String hotelId = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_ID);
+        String hotelPropertyCode = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE);
 
-        if (hotelId == null) {
+        if (hotelPropertyCode == null) {
             throw new IllegalArgumentException("Hotel requires valid id");
         }
 
@@ -111,9 +112,9 @@ public class CollectionProvider extends ContentProvider {
             throw new IllegalArgumentException("Hotel requires valid city");
         }
 
-        Double hotelRating = values.getAsDouble(CollectionContract.CollectionEntry.COLUMN_HOTEL_RATING);
+        String hotelCountry = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY);
 
-        if (hotelRating == null) {
+        if (hotelCountry == null) {
             throw new IllegalArgumentException("Hotel requires valid rating");
         }
 
@@ -131,6 +132,7 @@ public class CollectionProvider extends ContentProvider {
 
         getContext().getContentResolver().notifyChange(uri,null);
 
+        //return
         return ContentUris.withAppendedId(uri, newRowId);
     }
 
@@ -145,9 +147,9 @@ public class CollectionProvider extends ContentProvider {
                 rowsDeleted = database.delete(CollectionContract.CollectionEntry.TABLE_NAME, selection, selectionArgs);
                 database.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '" + CollectionContract.CollectionEntry.TABLE_NAME + "'");
                 break;
-            case HOTEL_ID:
-                selection = CollectionContract.CollectionEntry.COLUMN_HOTEL_ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+            case HOTEL_PROPERTY_CODE:
+                selection = CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE + "=?";
+                selectionArgs = new String[] { String.valueOf(uri.getPath().substring(8,uri.getPath().length())) };
                 rowsDeleted = database.delete(CollectionContract.CollectionEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -156,7 +158,7 @@ public class CollectionProvider extends ContentProvider {
 
 
         if (rowsDeleted != 0) {
-            getContext().getContentResolver().notifyChange(uri, null);
+          getContext().getContentResolver().notifyChange(uri, null);
         }
 
         if (rowsDeleted != 0) {
@@ -195,7 +197,7 @@ public class CollectionProvider extends ContentProvider {
         }
 
         if (rowsUpdated != 0) {
-            getContext().getContentResolver().notifyChange(uri, null);
+          getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsUpdated;
     }
