@@ -3,7 +3,6 @@ package com.apps.dbm.traveldbm;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -67,21 +65,15 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_results);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //setTitle("Hotel Results");
-
-        Toolbar myChildToolbar =
-                (Toolbar) findViewById(R.id.my_child_toolbar);
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_child_toolbar);
         setSupportActionBar(myChildToolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
+        ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        setTitle("Hotel Results");
+        setTitle(getString(R.string.hotel_results_title));
 
         Intent intent = getIntent();
 
@@ -101,14 +93,13 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
                 recyclerView.setHasFixedSize(true);
 
 
-                mAdapter = new HotelAdapter(listHotels,listHotels.size(),this);
+                mAdapter = new HotelAdapter(listHotels,listHotels.size(),this,this);
                 recyclerView.setAdapter(mAdapter);
 
             } else{
-                //Log.v(LOG,"No hotels could be found for this city");
                 mEmptyTextView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
-                mEmptyTextView.setText("No hotels could be found for this city.");
+                mEmptyTextView.setText(getString(R.string.no_hotels_found_message));
             }
         }
     }
@@ -116,7 +107,6 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -126,7 +116,9 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
 
     @Override
     public void onListItemClick(int clickedItemIndex, String typeAction) {
+
         indexSelected = clickedItemIndex;
+
         if(typeAction.equals("details")){
             mProgressBar.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
@@ -137,7 +129,6 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
             serviceIntent.putExtra("check_out_date",listHotels.get(clickedItemIndex).getHotelCheckOutDate());
             startService(serviceIntent);
         } else if(typeAction.equals("mark_as_favorite")){
-            //Toast.makeText(this, "save hotel in favorites",Toast.LENGTH_SHORT).show();
 
             if(isNewFavorite(listHotels.get(clickedItemIndex))) {
 
@@ -161,14 +152,13 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
 
                 updateWidgets();
             } else{
-                Toast.makeText(this,"This hotel is already in your favorites",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.already_in_favorites_message),Toast.LENGTH_SHORT).show();
             }
 
         } else if(typeAction.equals("share_general_data")){
-            //Toast.makeText(this, "share general data",Toast.LENGTH_SHORT).show();
             shareContent(clickedItemIndex);
         } else {
-            Toast.makeText(this, "error, type action not recognized",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_type_not_recognized_message),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -235,8 +225,6 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
             mProgressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             List<Room> roomList = intent.getParcelableArrayListExtra("room_list");
-            //progressBar.setVisibility(View.GONE);
-            //linearLayout.setVisibility(View.VISIBLE);
             Intent intentDetail = new Intent(HotelResultsActivity.this, HotelDetailActivity.class);
             intentDetail.putExtra("hotel_selected",listHotels.get(indexSelected));
             intentDetail.putExtra("room_list",(ArrayList<Room>) roomList);

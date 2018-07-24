@@ -7,6 +7,7 @@
     android:background="#D1A1FF">
 
     <ImageView
+        android:contentDescription="@string/widget_hotel_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
@@ -15,6 +16,7 @@
         android:src="@drawable/favorite_backg" />
 
     <ImageView
+        android:contentDescription="@string/gradient_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="4dp"

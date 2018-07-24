@@ -20,7 +20,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     public static DatePickerFragment newInstance(boolean isCheckIn) {
         DatePickerFragment f = new DatePickerFragment();
-        // Supply index input as an argument.
         Bundle args = new Bundle();
         args.putBoolean("is_check_in", isCheckIn);
         f.setArguments(args);
@@ -39,7 +38,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current date as the default date in the picker
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -55,7 +53,6 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
             titleDialog = "Select Check-out Date";
         }
 
-        // Create a new instance of DatePickerDialog and return it
         DatePickerDialog datePickerDialog = new MyDatePickerDialog(getActivity(), this, year, month, day,titleDialog);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
 

@@ -61,16 +61,12 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hotel_detail);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Toolbar myChildToolbar =
-                (Toolbar) findViewById(R.id.my_child_toolbar);
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_child_toolbar);
         setSupportActionBar(myChildToolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
+        ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -81,7 +77,6 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             longitudeHotel = Double.valueOf(hotel.getHotelLongitude());
         }
 
-        //setTitle(hotel.getHotelName());
         setTitle(hotel.getHotelName());
 
         scrollView = (NestedScrollView) findViewById(R.id.scroll_view_details);
@@ -133,10 +128,10 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(latitudeHotel, longitudeHotel);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng hotelPosition = new LatLng(latitudeHotel, longitudeHotel);
+        mMap.addMarker(new MarkerOptions().position(hotelPosition).title(hotel.getHotelName()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(hotelPosition));
 
         mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
@@ -163,10 +158,9 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
     }
 
     private void populateUI(){
-
-            hotelLocationTV.setText("Location: " + hotel.getHotelCity() + " - " + hotel.getHotelCountry());
-            hotelAddressTV.setText("Address: " + hotel.getHotelAddress());
-            hotelPhoneTV.setText("Phone: " + hotel.getHotelPhone());
+            hotelLocationTV.setText(getString(R.string.location_placeholder,hotel.getHotelCity(),hotel.getHotelCountry()));
+            hotelAddressTV.setText(getString(R.string.address_placeholder,hotel.getHotelAddress()));
+            hotelPhoneTV.setText(getString(R.string.phone_placeholder,hotel.getHotelPhone()));
             hotelServicesTV.setText(hotel.getHotelAmenities());
             hotelNameTV.setText(hotel.getHotelName());
         if(hotel.getHotelURL() != null) {
@@ -175,13 +169,16 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
                 if (website.contains("http")) {
                     hotelWebsiteTV.setText(hotel.getHotelURL());
                 } else {
-                    hotelWebsiteTV.setText("http://" + hotel.getHotelURL());
+                    hotelWebsiteTV.setText(getString(R.string.website_placeholder,hotel.getHotelURL()));
                 }
                 hotelWebsiteButton.setVisibility(View.VISIBLE);
             } else {
-                hotelWebsiteTV.setText("This hotel does not have a website yet.");
+                hotelWebsiteTV.setText(getString(R.string.no_website_message));
                 hotelWebsiteButton.setVisibility(View.GONE);
             }
+        } else{
+            hotelWebsiteTV.setText(getString(R.string.no_website_message));
+            hotelWebsiteButton.setVisibility(View.GONE);
         }
 
 
@@ -209,9 +206,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                //NavUtils.navigateUpFromSameTask(this);
                 onBackPressed();
                 return true;
         }

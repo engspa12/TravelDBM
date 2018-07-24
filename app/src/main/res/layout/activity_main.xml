@@ -12,8 +12,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:theme="@style/AppToolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:minHeight="?attr/actionBarSize"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -35,6 +36,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:contentDescription="@string/hotel_icon"
                         android:layout_width="144dp"
                         android:layout_height="144dp"
                         android:layout_gravity="center"

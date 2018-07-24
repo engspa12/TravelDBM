@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -104,22 +102,15 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Toolbar myChildToolbar =
-                (Toolbar) findViewById(R.id.my_child_toolbar);
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_child_toolbar);
         setSupportActionBar(myChildToolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
-
-        // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
 
-        setTitle(getString(R.string.search_hotels_title));
+
 
         Intent intent = getIntent();
-        //Bundle bundle = intent.getExtras();
 
         cityEditText = (EditText) findViewById(R.id.edit_text_city);
         doublePurposeTextView = (TextView) findViewById(R.id.double_purpose_text_view);
@@ -132,6 +123,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         if(intent.hasExtra("favorite_property_code")){
             propertyCodeFav = intent.getStringExtra("favorite_property_code");
             String favName = intent.getStringExtra("favorite_name");
+            setTitle(favName);
             hotelFav = new Hotel(propertyCodeFav,
                     favName,
                     intent.getStringExtra("favorite_latitude"),
@@ -147,15 +139,11 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             city = intent.getStringExtra("favorite_city");
             validCityEntered = true;
             cityEditText.setVisibility(View.GONE);
-            doublePurposeTextView.setText("Hotel Name: " + favName);
-            searchButton.setText("Check Hotel Details");
-            isNewSearch = false;
-        } else if(intent.hasExtra("favorite_property_code_another")) {
-            String favoritePropertyCode = intent.getStringExtra("hotel_property_code_favorite");
-            cityEditText.setVisibility(View.GONE);
-            doublePurposeTextView.setText("Favorite: " + favoritePropertyCode);
+            doublePurposeTextView.setText(getString(R.string.hotel_name_placeholder,favName));
+            searchButton.setText(getString(R.string.check_hotel_details_button_text));
             isNewSearch = false;
         } else {
+            setTitle(getString(R.string.search_hotels_title));
             cityEditText.setVisibility(View.VISIBLE);
             isNewSearch = true;
         }
@@ -166,10 +154,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
-
-
         getCitiesList();
-
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +165,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                         if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         } else {
-                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                            Log.d("TAG", getString(R.string.ad_not_loaded_yet_message));
                         }
                     }
                 } else{
@@ -267,14 +252,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     public boolean checkInput(String cityInput) {
         if (!cityInput.isEmpty()) {
                 if (cityInput.contains("0123456789") || cityInput.equals("")) {
-                    Toast.makeText(this, "Enter a valid city", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.enter_valid_city_message), Toast.LENGTH_SHORT).show();
                     return false;
                 } else {
                     validCity(cityInput);
                     return checkAdditionalData();
                 }
         } else {
-            Toast.makeText(this, "Enter a city name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.enter_city_name_message), Toast.LENGTH_SHORT).show();
             return false;
         }
     }
@@ -302,7 +287,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         } else {
             if(listCitiesDuplicated != null) {
                 if (listCitiesDuplicated.size() > 1) {
-                    Toast.makeText(SearchActivity.this, "Please, specify country", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchActivity.this, getString(R.string.specify_country_message), Toast.LENGTH_SHORT).show();
                 }
             }
             return false;
@@ -311,7 +296,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
     public void validCity(String cityName) {
 
-        //validCityEntered = false;
         int count =0;
 
         if (cities != null) {
@@ -363,7 +347,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                                     if (mInterstitialAd.isLoaded()) {
                                         mInterstitialAd.show();
                                     } else {
-                                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                                        Log.d("TAG", getString(R.string.ad_not_loaded_yet_message));
                                     }
                                 }
 
@@ -375,8 +359,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }
 
         if(count == 0){
-            Toast.makeText(SearchActivity.this, "The city called " + cityName
-                    + " couldn't be found in the database ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SearchActivity.this, getString(R.string.city_not_found_message,cityName), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -449,19 +432,18 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                         if(isCheckIn){
                             checkInTextView.setText(getString(R.string.no_date_selected));
                             checkInDate = null;
-                            Toast.makeText(this, "Check-in date must be before Check-out date. Choose Check-in date before " + sdf.format(checkOut), Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.check_in_error_message) + sdf.format(checkOut), Toast.LENGTH_LONG).show();
                             DialogFragment newFragment = DatePickerFragment.newInstance(isCheckIn);
                             newFragment.show(getSupportFragmentManager(), "datePickerCheckOut");
                         } else {
                             checkOutTextView.setText(getString(R.string.no_date_selected));
                             checkOutDate = null;
-                            Toast.makeText(this, "Check-out date must be after Check-in date. Choose Check-out date after " + sdf.format(checkIn), Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.check_out_error_message) + sdf.format(checkIn), Toast.LENGTH_LONG).show();
                             DialogFragment newFragment = DatePickerFragment.newInstance(isCheckIn);
                             newFragment.show(getSupportFragmentManager(), "datePickerCheckOut");
                         }
                         return false;
                 } else{
-                    //Toast.makeText(this,"Dates entered are valid",Toast.LENGTH_LONG).show();
                     return true;
                 }
             } catch (ParseException e) {
@@ -470,12 +452,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             }
         } else {
             if(checkInDate == null && checkOutDate == null){
-                Toast.makeText(this, "Select Check-in date and Check-out date", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.select_check_in_check_out), Toast.LENGTH_LONG).show();
             } else {
                 if (checkInDate == null) {
-                    Toast.makeText(this, "Select Check-in date", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.select_check_in), Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this, "Select Check-out date", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getString(R.string.select_check_out), Toast.LENGTH_LONG).show();
                 }
             }
             return false;

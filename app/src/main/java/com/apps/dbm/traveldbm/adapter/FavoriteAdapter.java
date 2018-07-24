@@ -1,15 +1,12 @@
 package com.apps.dbm.traveldbm.adapter;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.view.ContextMenu;
-import android.view.FrameMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +31,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private Context mContext;
 
-    private UpdateWidgetsItemsListener mWidgetlistener;
+    private UpdateWidgetsItemsListener mWidgetListener;
 
     private OnGridOnClickListener mGridListener;
 
@@ -52,7 +49,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         totalItems = numberOfFavorites;
         mContext = context;
         mGridListener = gridListener;
-        mWidgetlistener = listener;
+        mWidgetListener = listener;
     }
 
 
@@ -65,9 +62,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
         View view = inflater.inflate(R.layout.favorite_item_two, parent, false);
 
-        FavoriteViewHolder viewHolher = new FavoriteViewHolder(view);
+        FavoriteViewHolder viewHolder = new FavoriteViewHolder(view);
 
-        return viewHolher;
+        return viewHolder;
     }
 
     @Override
@@ -121,19 +118,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         }
 
         public void bind(final int listIndex) {
-            //index = listIndex;
             favoriteNameTV.setText(listFavorites.get(listIndex).getFavoriteName());
-            favoriteAddressTV.setText("Address: " + listFavorites.get(listIndex).getFavoriteAddress());
-            favoritePhoneTV.setText("Phone: " + listFavorites.get(listIndex).getFavoritePhone());
-            favoriteLocationTV.setText("Location: " + listFavorites.get(listIndex).getFavoriteLocation());
+            favoriteAddressTV.setText(mContext.getString(R.string.address_placeholder,listFavorites.get(listIndex).getFavoriteAddress()));
+            favoritePhoneTV.setText(mContext.getString(R.string.phone_placeholder,listFavorites.get(listIndex).getFavoritePhone()));
+            favoriteLocationTV.setText(mContext.getString(R.string.favorite_location_placeholder,listFavorites.get(listIndex).getFavoriteLocation()));
             deleteFavoriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //index = listIndex;
                     String propertyCodeFavorite = listFavorites.get(listIndex).getFavoritePropertyCode();
                     Uri wantedUri = Uri.withAppendedPath(CollectionContract.CollectionEntry.CONTENT_URI, propertyCodeFavorite);
                     mContext.getContentResolver().delete(wantedUri, null, null);
-                    mWidgetlistener.updateWidgets();
+                    mWidgetListener.updateWidgets();
                 }
             });
         }

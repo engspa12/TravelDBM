@@ -4,7 +4,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
@@ -15,20 +14,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.apps.dbm.traveldbm.adapter.FavoriteAdapter;
 import com.apps.dbm.traveldbm.classes.Favorite;
 import com.apps.dbm.traveldbm.data.CollectionContract;
 import com.apps.dbm.traveldbm.widget.FavoriteAppWidgetProvider;
-import com.apps.dbm.traveldbm.widget.WidgetService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +31,6 @@ import java.util.List;
 public class FavoritesActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks
         , FavoriteAdapter.UpdateWidgetsItemsListener
         , FavoriteAdapter.OnGridOnClickListener{
-
 
     private static final String LOG = FavoritesActivity.class.getSimpleName();
 
@@ -67,29 +61,19 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //setTitle("Favorite Hotels");
-
-        Toolbar myChildToolbar =
-                (Toolbar) findViewById(R.id.my_child_toolbar);
+        Toolbar myChildToolbar = (Toolbar) findViewById(R.id.my_child_toolbar);
         setSupportActionBar(myChildToolbar);
 
-        // Get a support ActionBar corresponding to this toolbar
-        ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
+        ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-        setTitle("Favorite Hotels");
+        setTitle(getString(R.string.favorite_hotels_title));
 
         favoritesRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_favorites);
 
         favoritesEmptyTextView = (TextView) findViewById(R.id.favorites_empty_text_view);
         favoritesEmptyTextView.setVisibility(View.GONE);
-
-        //LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        //favoritesRecyclerView.setLayoutManager(linearLayoutManager);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         favoritesRecyclerView.setLayoutManager(gridLayoutManager);
@@ -104,7 +88,6 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -184,7 +167,6 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     public void updateWidgets() {
-        //Log.v(LOG,"Update Widgets");
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(this, FavoriteAppWidgetProvider.class));
 

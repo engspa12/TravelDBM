@@ -25,15 +25,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
     private ListItemClickListener mListener;
 
+    private Context mContext;
 
     public interface ListItemClickListener{
         void onListItemClick(int clickedItemIndex,String typeAction);
     }
 
-    public HotelAdapter(List<Hotel> list, int numberItems, ListItemClickListener listener){
+    public HotelAdapter(List<Hotel> list, int numberItems, ListItemClickListener listener,Context context){
         numberOfHotels = numberItems;
         mListener = listener;
         listHotels = list;
+        mContext = context;
     }
 
 
@@ -111,8 +113,8 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
 
         private void bind(int listIndex){
             hotelNameTextView.setText(listHotels.get(listIndex).getHotelName());
-            hotelAddressTextView.setText("Address:\n" + listHotels.get(listIndex).getHotelAddress());
-            hotelMinPriceTextView.setText("From " + listHotels.get(listIndex).getHotelMinPrice());
+            hotelAddressTextView.setText(mContext.getString(R.string.hotel_adapter_address_placeholder,listHotels.get(listIndex).getHotelAddress()));
+            hotelMinPriceTextView.setText(mContext.getString(R.string.hotel_adapter_min_price_placeholder,listHotels.get(listIndex).getHotelMinPrice()));
         }
 
 

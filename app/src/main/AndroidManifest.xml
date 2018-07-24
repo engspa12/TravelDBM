@@ -60,10 +60,10 @@
                 android:value="com.apps.dbm.traveldbm.HotelResultsActivity" />
         </activity>
 
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAPS_API_KEY"/>
-
 
         <activity android:name=".FavoritesActivity"
             android:parentActivityName=".MainActivity">

@@ -63,7 +63,7 @@ public class Favorite implements Parcelable {
         favoriteLongitude = in.readString();
         favoriteAddress = in.readString();
         favoriteCity = in.readString();
-        favoriteCountry = in.readString();;
+        favoriteCountry = in.readString();
         favoritePhone = in.readString();
         favoriteUrl = in.readString();
         favoriteAmenities = in.readString();

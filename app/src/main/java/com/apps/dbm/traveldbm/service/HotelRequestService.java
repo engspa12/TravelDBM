@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -16,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.apps.dbm.traveldbm.BuildConfig;
+import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.classes.Hotel;
 import com.apps.dbm.traveldbm.classes.Room;
 
@@ -46,9 +46,11 @@ public class HotelRequestService extends IntentService {
 
     private static final String BASE_URL_ROOMS = "https://api.sandbox.amadeus.com/v1.2/hotels/";
 
+
     private static final String API_KEY = BuildConfig.API_KEY;
-    private static final int RADIUS = 75;
-    private static final int NUMBER_OF_RESULTS = 30;
+    private static final int RADIUS = 80;
+    private static final int NUMBER_OF_RESULTS = 50;
+
 
     private static final String API_KEY_PARAM = "apikey";
     private static final String LATITUDE_PARAM = "latitude";
@@ -62,8 +64,6 @@ public class HotelRequestService extends IntentService {
     private String checkOutDate;
 
     private String tempUrl;
-
-    //private String city;
 
     private boolean isHotelGeneralInformation;
 
@@ -80,29 +80,23 @@ public class HotelRequestService extends IntentService {
         mRequestQueue = Volley.newRequestQueue(this);
         if (intent != null){
             String queryAction = intent.getAction();
-            //String queryAction = intent.getStringExtra("query_action");
-            //city = intent.getStringExtra("city_name");
             checkInDate = intent.getStringExtra("check_in_date");
             checkOutDate = intent.getStringExtra("check_out_date");
             if(queryAction.equals("hotel_general_data")) {
                 isHotelGeneralInformation = true;
                 String cityLatitude = intent.getStringExtra("city_latitude");
                 String cityLongitude = intent.getStringExtra("city_longitude");
-                //checkInDate = intent.getStringExtra("check_in_date");
-                //checkOutDate = intent.getStringExtra("check_out_date");
                 listOfHotels = new ArrayList<>();
                 URL url = buildUrl(cityLatitude, cityLongitude, checkInDate, checkOutDate);
                 getDataFromHttpUrlUsingJSON(url.toString());
             } else if(queryAction.equals("rooms_data")){
                 isHotelGeneralInformation = false;
                 String hotelPropertyCode = intent.getStringExtra("hotel_property_code");
-                //checkInDate = intent.getStringExtra("check_in_date");
-                //checkOutDate = intent.getStringExtra("check_out_date");
                 listOfRooms = new ArrayList<>();
                 URL urlAdditional = buildUrlForRooms(hotelPropertyCode, checkInDate, checkOutDate);
                 getDataFromHttpUrlUsingJSON(urlAdditional.toString());
             } else{
-                Log.e(LOG,"There was a problem with getting action from intent");
+                Log.e(LOG,getString(R.string.action_not_found));
             }
 
         }
@@ -154,14 +148,12 @@ public class HotelRequestService extends IntentService {
                                         String region = addressObject.getString("region");
                                         address = addressObject.getString("line1")
                                                 + " " + addressObject.getString("city")
-                                                //+ " " + city
                                                 + " " + region
                                                 + " " + addressObject.getString("postal_code")
                                                 + " " + addressObject.getString("country");
                                     } catch (JSONException e) {
                                         address = addressObject.getString("line1")
                                                 + " " + addressObject.getString("city")
-                                                //+ " " + city
                                                 + " " + addressObject.getString("postal_code")
                                                 + " " + addressObject.getString("country");
                                     }
@@ -251,7 +243,7 @@ public class HotelRequestService extends IntentService {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e(LOG,"There was an error while retrieving the data");
+                        Log.e(LOG,getString(R.string.error_retrieving_data_message));
                         counterTry++;
                         if(counterTry <= 3) {
                             getDataFromHttpUrlUsingJSON(tempUrl);
@@ -282,7 +274,7 @@ public class HotelRequestService extends IntentService {
 
     public void sendErrorMessage(){
         Intent errorIntent = new Intent(BROADCAST_ACTION);
-        errorIntent.putExtra("error_server", "There is a problem with the server right now, please try again later");
+        errorIntent.putExtra("error_server", getString(R.string.error_message_broadcast));
         LocalBroadcastManager.getInstance(this).sendBroadcast(errorIntent);
     }
 

@@ -21,9 +21,6 @@ public class CollectionDbHelper extends SQLiteOpenHelper {
             CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_URL + " TEXT NOT NULL," +
             CollectionContract.CollectionEntry.COLUMN_HOTEL_AMENITIES + " TEXT NOT NULL)";
-    //+
-    //CollectionContract.CollectionEntry.COLUMN_MOVIE_SYNOPSIS + " TEXT NOT NULL," +
-    //CollectionContract.CollectionEntry.COLUMN_SAVED_MOVIE_IMAGE + " BLOB)";
 
 
     public static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + CollectionContract.CollectionEntry.TABLE_NAME;

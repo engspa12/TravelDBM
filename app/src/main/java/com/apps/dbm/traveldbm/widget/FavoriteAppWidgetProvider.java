@@ -22,7 +22,6 @@ public class FavoriteAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        //super.onUpdate(context, appWidgetManager, appWidgetIds);
         updateWidget(context,appWidgetManager,appWidgetIds);
     }
 
@@ -51,14 +50,12 @@ public class FavoriteAppWidgetProvider extends AppWidgetProvider {
             svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-            views.setTextViewText(R.id.widget_title_text_view,"Favorite Hotels");
+            views.setTextViewText(R.id.widget_title_text_view,context.getString(R.string.widget_title));
             views.setRemoteAdapter(appWidgetIds[i], R.id.widget_list_view, svcIntent);
+            views.setEmptyView(R.id.widget_list_view, R.id.widget_empty_text_view);
 
             Intent activityIntent = new Intent(context, SearchActivity.class);
-            //activityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-            //activityIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            //activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //PendingIntent pendingIntent = PendingIntent.getActivity(context,0,activityIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
             PendingIntent pendingIntent = TaskStackBuilder.create(context)
                     .addNextIntentWithParentStack(activityIntent)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -1,10 +1,7 @@
 package com.apps.dbm.traveldbm.classes;
 
-import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.List;
 
 public class Hotel implements Parcelable {
 
@@ -14,11 +11,8 @@ public class Hotel implements Parcelable {
     private String hotelLongitude;
     private String hotelAddress;
     private String hotelMinPrice;
-    //private List<Bitmap> hotelPhotos;
-    //private List<Room> hotelRooms;
     private String hotelCity;
     private String hotelCountry;
-    //private List<Review> hotelReviews;
     private String hotelPhone;
     private String hotelURL;
     private String hotelAmenities;
@@ -46,11 +40,8 @@ public class Hotel implements Parcelable {
         hotelLongitude = longitude;
         hotelAddress = address;
         hotelMinPrice = minPrice;
-        //hotelPhotos = photos;
-        //hotelRooms = rooms;
         hotelCity = city;
         hotelCountry = country;
-        //hotelReviews = reviews;
         hotelPhone = phone;
         hotelURL = url;
         hotelAmenities = amenities;
@@ -127,23 +118,11 @@ public class Hotel implements Parcelable {
 
     public String getHotelMinPrice(){ return hotelMinPrice;}
 
-    //public List<Bitmap> getHotelPhotos(){
-    //   return hotelPhotos;
-    //}
-
-    //public List<Room> getHotelRooms(){
-    //  return  hotelRooms;
-    //}
-
     public String getHotelCity(){
         return hotelCity;
     }
 
     public String getHotelCountry(){return hotelCountry;}
-
-    //public List<Review> getHotelReviews(){
-    //   return hotelReviews;
-    //}
 
     public String getHotelPhone(){return hotelPhone;}
 

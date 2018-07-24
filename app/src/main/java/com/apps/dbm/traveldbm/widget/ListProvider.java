@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
-import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -31,17 +30,14 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
             CollectionContract.CollectionEntry.COLUMN_HOTEL_AMENITIES};
 
     private List<Favorite> favoritesList;
-    private Context context = null;
+    private Context context;
     private int appWidgetId;
 
-    private boolean noFavorites = false;
 
     public ListProvider(Context context, Intent intent) {
         this.context = context;
         appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
-
-       //favoritesList = getListItems();
     }
 
     public List<Favorite> getListItems() {
@@ -62,11 +58,8 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
         String amenities;
         String location;
 
-        //List<Favorite> favoriteList = new ArrayList<>();
         if (cursor != null) {
             if (cursor.getCount() != 0) {
-                //cursor.moveToFirst();
-                noFavorites = false;
 
                 while (cursor.moveToNext()) {
                     propertyCode = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE));
@@ -85,8 +78,6 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
                     list.add(new Favorite(propertyCode,name,latitude,longitude, address,city,country, phone,url,amenities, location));
                 }
 
-            } else{
-                noFavorites = true;
             }
         }
 
@@ -137,16 +128,13 @@ public class ListProvider implements RemoteViewsService.RemoteViewsFactory {
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_list_item);
 
         remoteViews.setTextViewText(R.id.widget_favorite_name, favoriteListItem.getFavoriteName());
-        remoteViews.setTextViewText(R.id.widget_favorite_address, "Address: " + favoriteListItem.getFavoriteAddress());
-        remoteViews.setTextViewText(R.id.widget_favorite_phone, "Phone: " + favoriteListItem.getFavoritePhone());
-        remoteViews.setTextViewText(R.id.widget_favorite_location, "Location: " + favoriteListItem.getFavoriteLocation());
-
-        //Bundle extras = new Bundle();
-        //extras.putString("hotel_property_code",favoriteListItem.getFavoritePropertyCode());
+        remoteViews.setTextViewText(R.id.widget_favorite_address, context.getString(R.string.address_placeholder,favoriteListItem.getFavoriteAddress()));
+        remoteViews.setTextViewText(R.id.widget_favorite_phone, context.getString(R.string.phone_placeholder,favoriteListItem.getFavoritePhone()));
+        remoteViews.setTextViewText(R.id.widget_favorite_location, context.getString(R.string.favorite_location_placeholder,favoriteListItem.getFavoriteLocation()));
 
 
         Intent fillInIntent = new Intent();
-        //fillInIntent.putExtras(extras);
+
         fillInIntent.putExtra("favorite_property_code",favoriteListItem.getFavoritePropertyCode());
         fillInIntent.putExtra("favorite_name",favoriteListItem.getFavoriteName());
         fillInIntent.putExtra("favorite_latitude",favoriteListItem.getFavoriteLatitude());

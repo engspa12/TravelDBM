@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.apps.dbm.traveldbm.R;
+
 public class CollectionProvider extends ContentProvider {
 
     private static final int HOTELS = 100;
@@ -97,7 +99,7 @@ public class CollectionProvider extends ContentProvider {
         String hotelPropertyCode = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE);
 
         if (hotelPropertyCode == null) {
-            throw new IllegalArgumentException("Hotel requires valid id");
+            throw new IllegalArgumentException("Hotel requires valid property code");
         }
 
         String hotelName = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_NAME);
@@ -115,24 +117,22 @@ public class CollectionProvider extends ContentProvider {
         String hotelCountry = values.getAsString(CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY);
 
         if (hotelCountry == null) {
-            throw new IllegalArgumentException("Hotel requires valid rating");
+            throw new IllegalArgumentException("Hotel requires valid country");
         }
 
-        //If everything is correct, we proceed to write into the database
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         long newRowId = database.insert(CollectionContract.CollectionEntry.TABLE_NAME,null,values);
 
         if (newRowId != -1){
-            Toast.makeText(getContext(), "The hotel was added successfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_added_successfully_message,Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getContext(),"The hotel couldn't be added as favorite",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_add_problem_message,Toast.LENGTH_SHORT).show();
         }
 
         getContext().getContentResolver().notifyChange(uri,null);
 
-        //return
         return ContentUris.withAppendedId(uri, newRowId);
     }
 
@@ -162,9 +162,9 @@ public class CollectionProvider extends ContentProvider {
         }
 
         if (rowsDeleted != 0) {
-            Toast.makeText(getContext(), "Hotel deleted successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_deleted_successfully_message, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(getContext(), "Hotel deletion failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_deletion_failed_message, Toast.LENGTH_SHORT).show();
         }
 
         return rowsDeleted;
@@ -190,10 +190,10 @@ public class CollectionProvider extends ContentProvider {
         int rowsUpdated = db.update(CollectionContract.CollectionEntry.TABLE_NAME, values, selection, selectionArgs);
 
         if (rowsUpdated != 0){
-            Toast.makeText(getContext(),"Hotel was updated successfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_updated_successfully_message,Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(getContext(),"There was a problem during update",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.hotel_problem_during_update_message,Toast.LENGTH_SHORT).show();
         }
 
         if (rowsUpdated != 0) {
