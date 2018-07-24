@@ -8,10 +8,18 @@
     <string name="search_hotels_title">Search Hotels</string>
     <string name="city_name_text">City Name:</string>
     <string name="enter_city_name_hint">Enter City Name</string>
-    <string name="number_of_stars_text">Number of stars:</string>
+    <string name="check_in_text">Check-in Date:</string>
+    <string name="check_out_text">Check-out Date:</string>
+    <string name="no_date_selected">No date selected</string>
     <string name="clarification_one">* Value must be between 2 and 5</string>
     <string name="clarification_two">* In case you want all the hotels without considering rating, enter a \'-\'</string>
     <string name="enter_stars_hint">3</string>
     <string name="search_hotels_button_text">Search Hotels</string>
     <string name="city_input_validation">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="choose_check_in_date_text">Choose Check-in Date</string>
+    <string name="choose_check_out_date_text">Choose Check-out Date</string>
+    <string name="pick_city">Choose City</string>
+    <string name="mark_as_favorite_button_text">Mark as Favorite</string>
+    <string name="details_button_text">Details</string>
+    <string name="share_content_text">Share Content</string>
 </resources>

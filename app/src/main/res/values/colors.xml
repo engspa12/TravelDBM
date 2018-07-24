@@ -5,4 +5,8 @@
     <color name="colorAccent">#de45ff</color>
     <color name="main_background">#6fa8dc</color>
     <color name="edit_text_background">#1c4587</color>
+    <color name="background_hotel_item">#dd7e6b</color>
+    <color name="share_button_color">#6aa84f</color>
+    <color name="details_button_background">#45818e</color>
+    <color name="mark_as_favorite_button_background">#674ea7</color>
 </resources>

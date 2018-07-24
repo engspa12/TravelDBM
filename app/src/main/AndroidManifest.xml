@@ -12,11 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".HotelRequestService" />
+        <service android:name=".service.HotelRequestService" />
 
         <provider
             android:name=".data.CollectionProvider"
-            android:authorities="com.example.dbm.traveldbm"
+            android:authorities="com.apps.dbm.traveldbm"
             android:exported="false" />
 
         <activity android:name=".MainActivity">
@@ -26,11 +26,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity"
-            android:parentActivityName="com.apps.dbm.traveldbm.MainActivity">
+        <activity
+            android:name=".SearchActivity"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.dbm.traveldbm.MainActivity" />
+        </activity>
+        <activity android:name=".HotelResultsActivity"
+            android:parentActivityName=".SearchActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apps.dbm.traveldbm.SearchActivity" />
         </activity>
     </application>
 

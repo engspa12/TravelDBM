@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showDialogForTesting(){
+    /*public void showDialogForTesting(){
 
         LayoutInflater factory = getLayoutInflater();
 
-        View content =  factory.inflate(R.layout.dialog_test, null);
-        ImageView dialogImage = (ImageView) content.findViewById(R.id.dialog_image);
+        //View content =  factory.inflate(R.layout.dialog_test, null);
+        //ImageView dialogImage = (ImageView) content.findViewById(R.id.dialog_image);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(content)
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
 
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
