@@ -4,7 +4,7 @@
     <string name="negative_button">Close</string>
     <string name="csv_file_not_found">The specified file was not found</string>
     <string name="search_description_text">Start searching your hotels using the magnifying glass button or click on the menu item to show favorites</string>
-    <string name="show_favorites_menu_Text">Show Favorites</string>
+    <string name="show_favorites_menu_text">Show Favorites</string>
     <string name="search_hotels_title">Search Hotels</string>
     <string name="city_name_text">City Name:</string>
     <string name="enter_city_name_hint">Enter City Name</string>
@@ -22,4 +22,10 @@
     <string name="mark_as_favorite_button_text">Mark as Favorite</string>
     <string name="details_button_text">Details</string>
     <string name="share_content_text">Share Content</string>
+    <string name="general_photo_content_description">General Photo</string>
+    <string name="services_photo_content_description">Services Photo</string>
+    <string name="location_in_map_text">Location in Map</string>
+    <string name="rooms_text">Rooms</string>
+    <string name="services_text">Services</string>
+    <string name="website_example"><u>https://www.booking.com/</u></string>
 </resources>

@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <service android:name=".service.HotelRequestService" />
 
         <provider
@@ -33,12 +36,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.dbm.traveldbm.MainActivity" />
         </activity>
-        <activity android:name=".HotelResultsActivity"
+        <activity
+            android:name=".HotelResultsActivity"
             android:parentActivityName=".SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.apps.dbm.traveldbm.SearchActivity" />
         </activity>
+        <activity android:name=".HotelDetailActivity"
+            android:parentActivityName=".HotelResultsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.apps.dbm.traveldbm.HotelResultsActivity" />
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/MAPS_API_KEY"/>
     </application>
 
 </manifest>

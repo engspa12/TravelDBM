@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/show_favorites"
-        android:title="@string/show_favorites_menu_Text"
+        android:title="@string/show_favorites_menu_text"
         app:showAsAction="never"/>
 </menu>

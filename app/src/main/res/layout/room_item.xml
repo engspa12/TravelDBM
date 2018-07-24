@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#8e7cc3"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            tools:text="Junior Suite" />
+
+        <TextView
+            android:textStyle="italic"
+            android:padding="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            tools:text="* Promotional Rate\n\n* MANOR QUEEN ROOM,2 QUEEN BEDS\n\n* 351 SQ FT, MANOR MOTOR LODGE NEXT TO PROPERTY" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="8dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/services_photo_content_description"
+            android:src="@drawable/hotel_room" />
+
+        <TextView
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            tools:text="1764.15 USD" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

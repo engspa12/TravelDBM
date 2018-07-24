@@ -11,28 +11,32 @@ public class Room implements Parcelable {
     private String roomDescription;
     //private List<Bitmap> roomPhotos;
     private String roomPrice;
-    private String roomType;
-    private String roomNumberOfBeds;
-    private String roomBedType;
+    //private String roomType;
+    //private String roomNumberOfBeds;
+    //private String roomBedType;
 
 
     public Room(String description,
                 //List<Bitmap> photos,
-                String price,String type,String numberOfBeds,String bedType){
+                String price
+            //, String typeOfRoom
+            //, String numberOfBeds
+            //, String bedType
+                ){
         roomDescription = description;
         //roomPhotos = photos;
         roomPrice = price;
-        roomType = type;
-        roomNumberOfBeds = numberOfBeds;
-        roomBedType = bedType;
+        //roomType = typeOfRoom;
+        //roomNumberOfBeds = numberOfBeds;
+        //roomBedType = bedType;
     }
 
     private Room(Parcel in) {
         roomDescription = in.readString();
         roomPrice = in.readString();
-        roomType = in.readString();
-        roomNumberOfBeds = in.readString();
-        roomBedType = in.readString();
+        //roomType = in.readString();
+        //roomNumberOfBeds = in.readString();
+        //roomBedType = in.readString();
     }
 
 
@@ -55,26 +59,22 @@ public class Room implements Parcelable {
     public void writeToParcel(Parcel out, int i) {
         out.writeString(roomDescription);
         out.writeString(roomPrice);
-        out.writeString(roomType);
-        out.writeString(roomNumberOfBeds);
-        out.writeString(roomBedType);
+        //out.writeString(roomType);
+        //out.writeString(roomNumberOfBeds);
+        //out.writeString(roomBedType);
     }
 
     public String getRoomDescription(){
         return roomDescription;
     }
 
-    //public List<Bitmap> getRoomPhotos(){
-    //  return roomPhotos;
-    //}
+    //public List<Bitmap> getRoomPhotos(){return roomPhotos;}
 
     public String getRoomPrice(){return roomPrice;}
 
-    public String getRoomType(){
-        return roomType;
-    }
+    //public String getRoomType(){return roomType;}
 
-    private String getRoomNumberOfBeds(){return roomNumberOfBeds; }
+    //private String getRoomNumberOfBeds(){return roomNumberOfBeds; }
 
-    private String getRoomBedType(){return roomBedType;}
+    //private String getRoomBedType(){return roomBedType;}
 }

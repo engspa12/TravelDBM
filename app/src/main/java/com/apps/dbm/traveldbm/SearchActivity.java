@@ -104,6 +104,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 if (checkInput(city)) {
                         Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
                         //intent.putExtra("city_name", city);
+                        intent.setAction("hotel_general_data");
                         intent.putExtra("city_latitude", cityLat);
                         intent.putExtra("city_longitude", cityLong);
                         intent.putExtra("check_in_date", checkInDateInput);
@@ -237,6 +238,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                                 if (checkAdditionalData()) {
                                     Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
                                     //intent.putExtra("city_name", city);
+                                    intent.setAction("hotel_general_data");
                                     intent.putExtra("city_latitude", cityLat);
                                     intent.putExtra("city_longitude", cityLong);
                                     intent.putExtra("check_in_date", checkInDateInput);
@@ -367,7 +369,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }
     }
 
-    // Broadcast receiver for receiving status updates from the IntentService
+
     private class MyResponseReceiver extends BroadcastReceiver {
 
         public void onReceive(Context context, Intent intent) {

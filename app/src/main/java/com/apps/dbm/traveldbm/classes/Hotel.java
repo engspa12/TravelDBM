@@ -22,14 +22,21 @@ public class Hotel implements Parcelable {
     private String hotelPhone;
     private String hotelURL;
     private String hotelAmenities;
+    private String hotelCheckInDate;
+    private String hotelCheckOutDate;
 
 
     public Hotel(String propertyCode,String name,String latitude,String longitude,String address,String minPrice,
                  //List<Bitmap> photos,
                  //List<Room> rooms,
-                 String city, String country,
+                 String city,
+                 String country,
                  //List<Review> reviews,
-                 String phone, String url, String amenities){
+                 String phone,
+                 String url,
+                 String amenities,
+                 String checkInDate,
+                 String checkOutDate){
         hotelPropertyCode = propertyCode;
         hotelName = name;
         hotelLatitude = latitude;
@@ -44,6 +51,8 @@ public class Hotel implements Parcelable {
         hotelPhone = phone;
         hotelURL = url;
         hotelAmenities = amenities;
+        hotelCheckInDate = checkInDate;
+        hotelCheckOutDate = checkOutDate;
     }
 
     private Hotel(Parcel in) {
@@ -58,6 +67,8 @@ public class Hotel implements Parcelable {
         hotelPhone = in.readString();
         hotelURL = in.readString();
         hotelAmenities = in.readString();
+        hotelCheckInDate = in.readString();
+        hotelCheckOutDate = in.readString();
     }
 
 
@@ -91,6 +102,8 @@ public class Hotel implements Parcelable {
         out.writeString(hotelPhone);
         out.writeString(hotelURL);
         out.writeString(hotelAmenities);
+        out.writeString(hotelCheckInDate);
+        out.writeString(hotelCheckOutDate);
     }
 
     public String getHotelPropertyCode(){
@@ -136,4 +149,8 @@ public class Hotel implements Parcelable {
     }
 
     public String getHotelAmenities(){return hotelAmenities;}
+
+    public String getHotelCheckInDate(){return hotelCheckInDate;}
+
+    public String getHotelCheckOutDate(){return hotelCheckOutDate;}
 }
