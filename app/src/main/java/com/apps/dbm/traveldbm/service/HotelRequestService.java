@@ -76,6 +76,7 @@ public class HotelRequestService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
 
+        //Counter to retry requests before showing the user an error message
         counterTry = 0;
         mRequestQueue = Volley.newRequestQueue(this);
         if (intent != null){
@@ -259,6 +260,7 @@ public class HotelRequestService extends IntentService {
         mRequestQueue.add(jsonObjectRequest);
     }
 
+    //Use LocalBroadcastManager to send data to activities
     public void sendHotelDataToActivity(){
 
         Intent intent = new Intent(BROADCAST_ACTION);
@@ -272,12 +274,14 @@ public class HotelRequestService extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
+    //Error in the server response
     public void sendErrorMessage(){
         Intent errorIntent = new Intent(BROADCAST_ACTION);
         errorIntent.putExtra("error_server", getString(R.string.error_message_broadcast));
         LocalBroadcastManager.getInstance(this).sendBroadcast(errorIntent);
     }
 
+    //Create URL for an api request
     public URL buildUrl(String latitude, String longitude, String checkIn, String checkOut){
         Uri hotelQueryUri = Uri.parse(BASE_URL).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM,API_KEY)
@@ -297,7 +301,7 @@ public class HotelRequestService extends IntentService {
         }
     }
 
-
+    //Create URL for the rooms of an specified hotel
     public URL buildUrlForRooms(String propertyCode, String checkIn, String checkOut){
         Uri roomQueryUri = Uri.parse(BASE_URL_ROOMS + propertyCode).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM,API_KEY)

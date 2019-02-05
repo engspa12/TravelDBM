@@ -12,6 +12,7 @@ public class MyDatePickerDialog extends DatePickerDialog {
         titleDialog = title;
     }
 
+    //Set title of DatePickerDialog
     public void setTitle(CharSequence title) {
         super.setTitle(titleDialog);
     }

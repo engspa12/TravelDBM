@@ -108,8 +108,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
 
-
-
         Intent intent = getIntent();
 
         cityEditText = (EditText) findViewById(R.id.edit_text_city);
@@ -163,6 +161,8 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                     city = cityEditText.getText().toString().trim();
                     if (checkInput(city)) {
                         if (mInterstitialAd.isLoaded()) {
+                            //Show ad and be ready to execute HotelRequestService
+                            //This code executes in case of no duplication problem in city name
                             mInterstitialAd.show();
                         } else {
                             Log.d("TAG", getString(R.string.ad_not_loaded_yet_message));
@@ -248,14 +248,14 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         });
     }
 
-
+    //Check all the input values are correct
     public boolean checkInput(String cityInput) {
         if (!cityInput.isEmpty()) {
                 if (cityInput.contains("0123456789") || cityInput.equals("")) {
                     Toast.makeText(this, getString(R.string.enter_valid_city_message), Toast.LENGTH_SHORT).show();
                     return false;
                 } else {
-                    validCity(cityInput);
+                    validateCity(cityInput);
                     return checkAdditionalData();
                 }
         } else {
@@ -264,6 +264,82 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }
     }
 
+    //Validate city name as input
+    public void validateCity(String cityName) {
+
+        int count =0;
+
+        //Check city names match
+        if (cities != null) {
+            for (int i = 0; i < cities.size(); i++) {
+                if (cityName.equals(cities.get(i).getCityName())) {
+                    validCityEntered = true;
+                    cityLat = cities.get(i).getCityLatitude();
+                    cityLong = cities.get(i).getCityLongitude();
+                    count++;
+                }
+            }
+        }
+
+        if(count != 1 && count != 0) {
+            //There are two or more cities with the same name
+            validCityEntered = false;
+            if (cities != null) {
+                listCitiesDuplicated = new ArrayList<>();
+                for (int j = 0; j < cities.size(); j++) {
+                    if (cityName.equals(cities.get(j).getCityName())) {
+                        String cityLatitude = cities.get(j).getCityLatitude();
+                        String cityLongitude = cities.get(j).getCityLongitude();
+                        String cityCountry = cities.get(j).getCityCountry();
+                        String cityProvince = cities.get(j).getCityProvince();
+                        listCitiesDuplicated.add(new City(cities.get(j).getCityName(),cityLatitude,cityLongitude,cityCountry,cityProvince));
+                    }
+                }
+
+                List<String> listCitiesString = new ArrayList<>();
+
+                for(int k = 0; k < listCitiesDuplicated.size(); k++){
+                    String cityString = listCitiesDuplicated.get(k).getCityName()
+                            + " - " + listCitiesDuplicated.get(k).getCityCountry()
+                            + " - " + listCitiesDuplicated.get(k).getCityProvince();
+                    listCitiesString.add(cityString);
+                }
+
+                String[] cities = listCitiesString.toArray(new String[listCitiesString.size()]);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.pick_city)
+                        .setItems(cities, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //The 'which' argument contains the index position
+                                //of the selected item.
+                                //The city won't be valid unless the user selects and specify a country from
+                                //the list of duplicate cities.
+                                validCityEntered = true;
+                                cityLat = listCitiesDuplicated.get(which).getCityLatitude();
+                                cityLong = listCitiesDuplicated.get(which).getCityLongitude();
+                                if (checkAdditionalData()) {
+                                    if (mInterstitialAd.isLoaded()) {
+                                        //Show ad and be ready to execute HotelRequestService
+                                        //This code executes when there are 2 or more cities with the same name
+                                        mInterstitialAd.show();
+                                    } else {
+                                        Log.d("TAG", getString(R.string.ad_not_loaded_yet_message));
+                                    }
+                                }
+
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        }
+
+        if(count == 0){
+            Toast.makeText(SearchActivity.this, getString(R.string.city_not_found_message,cityName), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //Check dates and show specify country message in case of duplication in the name of the city
     public boolean checkAdditionalData(){
 
         if (validCityEntered) {
@@ -294,78 +370,10 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         }
     }
 
-    public void validCity(String cityName) {
-
-        int count =0;
-
-        if (cities != null) {
-            for (int i = 0; i < cities.size(); i++) {
-                if (cityName.equals(cities.get(i).getCityName())) {
-                    validCityEntered = true;
-                    cityLat = cities.get(i).getCityLatitude();
-                    cityLong = cities.get(i).getCityLongitude();
-                    count++;
-                }
-            }
-        }
-
-        if(count != 1 && count != 0) {
-            validCityEntered = false;
-            if (cities != null) {
-                listCitiesDuplicated = new ArrayList<>();
-                for (int j = 0; j < cities.size(); j++) {
-                    if (cityName.equals(cities.get(j).getCityName())) {
-                        String cityLatitude = cities.get(j).getCityLatitude();
-                        String cityLongitude = cities.get(j).getCityLongitude();
-                        String cityCountry = cities.get(j).getCityCountry();
-                        String cityProvince = cities.get(j).getCityProvince();
-                        listCitiesDuplicated.add(new City(cities.get(j).getCityName(),cityLatitude,cityLongitude,cityCountry,cityProvince));
-                    }
-                }
-
-                List<String> listCitiesString = new ArrayList<>();
-
-                for(int k = 0; k < listCitiesDuplicated.size(); k++){
-                    String cityString = listCitiesDuplicated.get(k).getCityName()
-                            + " - " + listCitiesDuplicated.get(k).getCityCountry()
-                            + " - " + listCitiesDuplicated.get(k).getCityProvince();
-                    listCitiesString.add(cityString);
-                }
-
-                String[] cities = listCitiesString.toArray(new String[listCitiesString.size()]);
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.pick_city)
-                        .setItems(cities, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // The 'which' argument contains the index position
-                                // of the selected item
-                                validCityEntered = true;
-                                cityLat = listCitiesDuplicated.get(which).getCityLatitude();
-                                cityLong = listCitiesDuplicated.get(which).getCityLongitude();
-                                //String city = cityEditText.getText().toString().trim();
-                                if (checkAdditionalData()) {
-                                    if (mInterstitialAd.isLoaded()) {
-                                        mInterstitialAd.show();
-                                    } else {
-                                        Log.d("TAG", getString(R.string.ad_not_loaded_yet_message));
-                                    }
-                                }
-
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        }
-
-        if(count == 0){
-            Toast.makeText(SearchActivity.this, getString(R.string.city_not_found_message,cityName), Toast.LENGTH_SHORT).show();
-        }
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
+        //Register Broadcast Receiver
         IntentFilter intentFilter = new IntentFilter(BROADCAST_ACTION);
         responseReceiver = new MyResponseReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, intentFilter);
@@ -373,10 +381,12 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
     @Override
     protected void onStop() {
+        //Unregister Broadcast Receiver
         LocalBroadcastManager.getInstance(this).unregisterReceiver(responseReceiver);
         super.onStop();
     }
 
+    //Get cities using CSV file
     public void getCitiesList() {
         cities = new ArrayList<>();
 
@@ -400,6 +410,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
         return super.onOptionsItemSelected(item);
     }
 
+    //Set dates in Activity via the DialogFragment
     @Override
     public void setDate(String textDate,int dayValue, int monthValue, int yearValue) {
 
@@ -418,29 +429,32 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             checkOutTextView = (TextView) findViewById(R.id.check_out_text_view);
             checkOutTextView.setText(textDate);
         }
+
         checkDates();
 
     }
 
+    //Check if dates for check-in and check-out are correct
     public boolean checkDates() {
         if (checkInDate != null && checkOutDate != null) {
             try {
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
                 Date checkOut = sdf.parse(checkOutDate);
                 Date checkIn = sdf.parse(checkInDate);
+                //Check if check-out date is earlier than check-in and inform user about the issue
                 if (checkOut.compareTo(checkIn) <= 0) {
                         if(isCheckIn){
                             checkInTextView.setText(getString(R.string.no_date_selected));
                             checkInDate = null;
-                            Toast.makeText(this, getString(R.string.check_in_error_message) + sdf.format(checkOut), Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.check_in_error_message) + " " + sdf.format(checkOut) + ".", Toast.LENGTH_LONG).show();
                             DialogFragment newFragment = DatePickerFragment.newInstance(isCheckIn);
-                            newFragment.show(getSupportFragmentManager(), "datePickerCheckOut");
+                            newFragment.show(getSupportFragmentManager(), "datePicker");
                         } else {
                             checkOutTextView.setText(getString(R.string.no_date_selected));
                             checkOutDate = null;
-                            Toast.makeText(this, getString(R.string.check_out_error_message) + sdf.format(checkIn), Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, getString(R.string.check_out_error_message) + " " + sdf.format(checkIn) + ".", Toast.LENGTH_LONG).show();
                             DialogFragment newFragment = DatePickerFragment.newInstance(isCheckIn);
-                            newFragment.show(getSupportFragmentManager(), "datePickerCheckOut");
+                            newFragment.show(getSupportFragmentManager(), "datePicker");
                         }
                         return false;
                 } else{
@@ -469,6 +483,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
 
         public void onReceive(Context context, Intent intent) {
             if(intent.hasExtra("hotel_list")) {
+                //Go to HotelResultsActivity to show the list of hotels available
                 List<Hotel> hotelResultsList = intent.getParcelableArrayListExtra("hotel_list");
                 progressBar.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
@@ -476,6 +491,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 intentResults.putExtra("hotel_list", (ArrayList<Hotel>) hotelResultsList);
                 startActivity(intentResults);
             } else if (intent.hasExtra("room_list") && !isNewSearch){
+                //Go directly to HotelDetailActivity when searching from user favorites list
                 List<Room> roomList = intent.getParcelableArrayListExtra("room_list");
                 progressBar.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
@@ -484,6 +500,7 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 intentDetail.putExtra("room_list",(ArrayList<Room>) roomList);
                 startActivity(intentDetail);
             } else if(intent.hasExtra("error_server")){
+                //Error in the response
                 progressBar.setVisibility(View.GONE);
                 errorServerTextView.setVisibility(View.VISIBLE);
                 errorServerTextView.setText(intent.getStringExtra("error_server"));

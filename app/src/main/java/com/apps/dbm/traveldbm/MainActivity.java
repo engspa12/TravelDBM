@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-
+        //Go to search screen
         fabButton = (FloatingActionButton) findViewById(R.id.search_fab_button);
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override

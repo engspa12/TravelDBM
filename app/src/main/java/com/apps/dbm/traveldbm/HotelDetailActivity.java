@@ -83,6 +83,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
 
         emptyTextView = (TextView) findViewById(R.id.rooms_empty_text_view);
 
+        //Share content
         detailFabButton = (FloatingActionButton) findViewById(R.id.detail_fab_button);
         detailFabButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +121,7 @@ public class HotelDetailActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
+        //Google maps fragment setup
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

@@ -54,8 +54,10 @@ public class FavoriteAppWidgetProvider extends AppWidgetProvider {
             views.setRemoteAdapter(appWidgetIds[i], R.id.widget_list_view, svcIntent);
             views.setEmptyView(R.id.widget_list_view, R.id.widget_empty_text_view);
 
+            //Intent to SearchActivity
             Intent activityIntent = new Intent(context, SearchActivity.class);
 
+            //PendingIntent to go from widget to SearchActivity
             PendingIntent pendingIntent = TaskStackBuilder.create(context)
                     .addNextIntentWithParentStack(activityIntent)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);

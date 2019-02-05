@@ -1,5 +1,6 @@
 package com.apps.dbm.traveldbm.classes;
 
+//For future use
 public class Review {
     private String reviewAuthor;
     private String reviewBody;

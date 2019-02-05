@@ -112,22 +112,18 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
         Cursor cursor = (Cursor) data;
         if(cursor != null && cursor.getCount() != 0) {
 
-            cursor.moveToFirst();
+            String propertyCode;
+            String name;
+            String latitude;
+            String longitude;
+            String address;
+            String city;
+            String country;
+            String phone;
+            String url;
+            String amenities;
 
-            String propertyCode = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_PROPERTY_CODE));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_NAME));
-            String latitude = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_LATITUDE));
-            String longitude = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_LONGITUDE));
-            String address = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS));
-            String city = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_CITY));
-            String country = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY));
-            String phone = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE));
-            String url = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_URL));
-            String amenities = cursor.getString(cursor.getColumnIndexOrThrow(CollectionContract.CollectionEntry.COLUMN_HOTEL_AMENITIES));
-
-            String location = city + " - " + country;
-
-            listFavorites.add(new Favorite(propertyCode,name,latitude,longitude, address,city,country, phone,url,amenities, location));
+            String location;
 
             while (cursor.moveToNext()) {
 
@@ -177,6 +173,7 @@ public class FavoritesActivity extends AppCompatActivity implements LoaderManage
 
     @Override
     public void onGridClick(int positionItem) {
+        //Start SearchActivity from favorites section
         Intent searchIntent = new Intent(this,SearchActivity.class);
         searchIntent.putExtra("favorite_property_code",listFavorites.get(positionItem).getFavoritePropertyCode());
         searchIntent.putExtra("favorite_name",listFavorites.get(positionItem).getFavoriteName());

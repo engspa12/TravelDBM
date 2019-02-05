@@ -97,6 +97,7 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
                 recyclerView.setAdapter(mAdapter);
 
             } else{
+                //If the list if empty, inform the user that there are no hotels available in the city entered
                 mEmptyTextView.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
                 mEmptyTextView.setText(getString(R.string.no_hotels_found_message));
@@ -162,6 +163,7 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         }
     }
 
+    //Find out if the hotel is already in your favorites list
     public boolean isNewFavorite(Hotel hotel){
 
         Uri wantedUri = Uri.withAppendedPath(CollectionContract.CollectionEntry.CONTENT_URI, hotel.getHotelPropertyCode());
@@ -182,6 +184,7 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
     @Override
     protected void onStart() {
         super.onStart();
+        //Register Broadcast Receiver
         IntentFilter intentFilter = new IntentFilter(BROADCAST_ACTION);
         responseReceiver = new ResponseReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(responseReceiver, intentFilter);
@@ -189,10 +192,12 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
 
     @Override
     protected void onStop() {
+        //Unregister Broadcast Receiver
         LocalBroadcastManager.getInstance(this).unregisterReceiver(responseReceiver);
         super.onStop();
     }
 
+    //Update widgets once a hotel is added to the favorites list
     public void updateWidgets(){
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(this, FavoriteAppWidgetProvider.class));
@@ -202,6 +207,8 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         FavoriteAppWidgetProvider.updateWidget(this,manager,appWidgetIds);
     }
 
+
+    //Share content of a particular hotel
     public void shareContent(int index){
         String mimeType = "text/plain";
         String title = "Share Content";
@@ -221,6 +228,8 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
 
     private class ResponseReceiver extends BroadcastReceiver {
 
+        //Get rooms data of a particular hotel once the service HotelRequestService has finished
+        //and start HotelDetailActivity passing in that data
         public void onReceive(Context context, Intent intent) {
             mProgressBar.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);

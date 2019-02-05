@@ -53,7 +53,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
             titleDialog = "Select Check-out Date";
         }
 
-        DatePickerDialog datePickerDialog = new MyDatePickerDialog(getActivity(), this, year, month, day,titleDialog);
+        //Custom DatePickerDialog
+        DatePickerDialog datePickerDialog = new MyDatePickerDialog(getActivity(), this, year, month, day, titleDialog);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
 
         return datePickerDialog;
