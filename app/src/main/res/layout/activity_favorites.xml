@@ -17,7 +17,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FavoritesActivity">
+        tools:context=".activities.FavoritesActivity">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view_favorites"

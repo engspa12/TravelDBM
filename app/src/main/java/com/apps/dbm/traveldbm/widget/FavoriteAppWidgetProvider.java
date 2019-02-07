@@ -14,7 +14,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.widget.RemoteViews;
 
 import com.apps.dbm.traveldbm.R;
-import com.apps.dbm.traveldbm.SearchActivity;
+import com.apps.dbm.traveldbm.activities.SearchActivity;
 
 
 public class FavoriteAppWidgetProvider extends AppWidgetProvider {
@@ -41,7 +41,6 @@ public class FavoriteAppWidgetProvider extends AppWidgetProvider {
     }
 
     public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds){
-
 
         for(int i=0;i<appWidgetIds.length;i++) {
 

@@ -114,13 +114,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         private void bind(int listIndex){
             hotelNameTextView.setText(listHotels.get(listIndex).getHotelName());
             hotelAddressTextView.setText(mContext.getString(R.string.hotel_adapter_address_placeholder,listHotels.get(listIndex).getHotelAddress()));
-            hotelMinPriceTextView.setText(mContext.getString(R.string.hotel_adapter_min_price_placeholder,listHotels.get(listIndex).getHotelMinPrice()));
+            if(listHotels.get(listIndex).getHotelMinPrice().equals(mContext.getString(R.string.contact_hotel_price_details_message))) {
+                hotelMinPriceTextView.setText(mContext.getString(R.string.contact_hotel_price_details_message));
+            } else {
+                hotelMinPriceTextView.setText(mContext.getString(R.string.hotel_adapter_min_price_placeholder,listHotels.get(listIndex).getHotelMinPrice()));
+            }
         }
 
 
         @Override
         public void onClick(View view) {
-
+            //For future use
         }
     }
 

@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    tools:context=".SearchActivity">
+                    tools:context=".activities.SearchActivity">
 
                     <TextView
                         android:id="@+id/double_purpose_text_view"

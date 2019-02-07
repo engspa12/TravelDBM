@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm;
+package com.apps.dbm.traveldbm.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.apps.dbm.traveldbm.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
         fabButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
-                startActivity(intent);
+              Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+              startActivity(intent);
             }
         });
+
 
     }
 

@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm;
+package com.apps.dbm.traveldbm.activities;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.adapter.FavoriteAdapter;
 import com.apps.dbm.traveldbm.classes.Favorite;
 import com.apps.dbm.traveldbm.data.CollectionContract;

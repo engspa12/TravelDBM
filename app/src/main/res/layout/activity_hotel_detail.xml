@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:background="#8e7cc3"
                 android:orientation="vertical"
-                tools:context=".HotelDetailActivity">
+                tools:context=".activities.HotelDetailActivity">
 
                 <TextView
                     android:id="@+id/hotel_name_text_view"
@@ -98,6 +98,30 @@
                             android:textSize="12sp"
                             android:textStyle="italic"
                             tools:text="Phone:  +702-128-4452" />
+
+                        <TextView
+                            android:id="@+id/hotel_check_in_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="italic"
+                            tools:text="Check in:  2019-06-03" />
+
+                        <TextView
+                            android:id="@+id/hotel_check_out_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="italic"
+                            tools:text="Check out:  2019-06-18" />
 
 
                     </LinearLayout>
@@ -261,7 +285,7 @@
                         android:layout_height="200dp"
                         android:layout_margin="16dp"
                         map:cameraZoom="15.5"
-                        tools:context=".HotelDetailActivity" />
+                        tools:context=".activities.HotelDetailActivity" />
                 </LinearLayout>
 
                 <View
@@ -327,5 +351,12 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="24dp"
             android:src="@mipmap/baseline_share_white_24" />
+
+        <TextView
+            android:id="@+id/scroll_view_empty_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            tools:text="No internet"/>
     </FrameLayout>
 </LinearLayout>

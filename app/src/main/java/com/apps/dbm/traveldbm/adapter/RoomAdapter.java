@@ -3,6 +3,7 @@ package com.apps.dbm.traveldbm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,12 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
     private List<Room> listRoom;
 
-    public RoomAdapter(int numberOfItems, List<Room> list){
+    private Context mContext;
+
+    public RoomAdapter(int numberOfItems, List<Room> list, Context context){
         totalItems = numberOfItems;
         listRoom = list;
+        mContext = context;
     }
 
     @NonNull
@@ -68,7 +72,13 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         private void bind(int listIndex){
             roomCodeTV.setText(listRoom.get(listIndex).getRoomCode());
             roomDescriptionTV.setText(listRoom.get(listIndex).getRoomDescription());
-            roomPriceTV.setText(listRoom.get(listIndex).getRoomPrice());
+            if(listRoom.get(listIndex).getRoomPrice().equals(mContext.getString(R.string.contact_hotel_for_room_price_message))){
+                roomPriceTV.setText(mContext.getString(R.string.contact_hotel_for_room_price_message));
+                roomPriceTV.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            } else {
+                roomPriceTV.setText(listRoom.get(listIndex).getRoomPrice());
+            }
+
         }
 
     }

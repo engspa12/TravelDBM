@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm;
+package com.apps.dbm.traveldbm.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apps.dbm.traveldbm.AmadeusService;
+import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.classes.City;
 import com.apps.dbm.traveldbm.classes.Hotel;
 import com.apps.dbm.traveldbm.classes.Room;
@@ -44,9 +46,6 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
     private static final String LOG = SearchActivity.class.getSimpleName();
 
     public static final String BROADCAST_ACTION = "com.apps.dbm.travel.BROADCAST";
-
-    public static final String EXTENDED_DATA_STATUS =
-            "com.apps.dbm.travel.STATUS";
 
     private EditText cityEditText;
 
@@ -170,7 +169,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                     }
                 } else{
                     if(checkAdditionalData()) {
-                        Intent serviceIntent = new Intent(SearchActivity.this, HotelRequestService.class);
+                        hotelFav.setHotelCheckInDate(checkInDateInput);
+                        hotelFav.setHotelCheckOutDate(checkOutDateInput);
+                        Intent serviceIntent = new Intent(SearchActivity.this, AmadeusService.class);
                         serviceIntent.setAction("rooms_data");
                         serviceIntent.putExtra("hotel_property_code",propertyCodeFav);
                         serviceIntent.putExtra("check_in_date", checkInDateInput);
@@ -234,9 +235,9 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
             @Override
             public void onAdClosed() {
                 // Code to be executed when the interstitial ad is closed.
-                Intent intent = new Intent(SearchActivity.this, HotelRequestService.class);
+                Intent intent = new Intent(SearchActivity.this, AmadeusService.class);
                 intent.setAction("hotel_general_data");
-                intent.putExtra("city_name",city);
+                intent.putExtra("city_name", city);
                 intent.putExtra("city_latitude", cityLat);
                 intent.putExtra("city_longitude", cityLong);
                 intent.putExtra("check_in_date", checkInDateInput);
@@ -496,14 +497,22 @@ public class SearchActivity extends AppCompatActivity implements DatePickerFragm
                 progressBar.setVisibility(View.GONE);
                 linearLayout.setVisibility(View.VISIBLE);
                 Intent intentDetail = new Intent(SearchActivity.this, HotelDetailActivity.class);
-                intentDetail.putExtra("hotel_selected",hotelFav);
+                intentDetail.putExtra("hotel_selected", hotelFav);
                 intentDetail.putExtra("room_list",(ArrayList<Room>) roomList);
                 startActivity(intentDetail);
-            } else if(intent.hasExtra("error_server")){
-                //Error in the response
+            } else if(intent.hasExtra("error_server_broadcast")){
+                //Error in the response in the hotels list
                 progressBar.setVisibility(View.GONE);
                 errorServerTextView.setVisibility(View.VISIBLE);
-                errorServerTextView.setText(intent.getStringExtra("error_server"));
+                errorServerTextView.setText(intent.getStringExtra("error_server_broadcast"));
+            }
+            else if(intent.hasExtra("error_server_hotel_id_broadcast")){
+                //Error in the response in the hotel id
+                progressBar.setVisibility(View.GONE);
+                linearLayout.setVisibility(View.VISIBLE);
+                Intent errorIntent = new Intent(SearchActivity.this, HotelDetailActivity.class);
+                errorIntent.putExtra("error_hotel_id",intent.getStringExtra("error_server_hotel_id_broadcast"));
+                startActivity(errorIntent);
             }
         }
     }

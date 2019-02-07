@@ -41,10 +41,12 @@
     <string name="phone_placeholder">Phone: %1$s</string>
     <string name="location_placeholder">Location: %1$s - %2$s</string>
     <string name="website_placeholder">http://%1$s</string>
+    <string name="check_in_placeholder">Check-in: %1$s</string>
+    <string name="check_out_placeholder">Check-out: %1$s</string>
     <string name="no_hotels_found_message">No hotels could be found for this city.</string>
     <string name="check_hotel_details_button_text">Check Hotel Details</string>
     <string name="hotel_name_placeholder">Hotel Name: %1$s</string>
-    <string name="hotel_adapter_address_placeholder">Address:\n%1$s)</string>
+    <string name="hotel_adapter_address_placeholder">Address:\n%1$s</string>
     <string name="hotel_adapter_min_price_placeholder">From %1$s</string>
     <string name="favorite_location_placeholder">Location: %1$s</string>
     <string name="hotel_icon">Hotel Icon</string>
@@ -57,7 +59,7 @@
     <string name="error_type_not_recognized_message">error, type action not recognized</string>
     <string name="action_not_found">There was a problem with getting action from intent</string>
     <string name="error_retrieving_data_message">There was an error while retrieving the data</string>
-    <string name="error_message_broadcast">There is a problem with the server right now, please try again later</string>
+    <string name="error_message_broadcast">There is a problem with the server right now, please try again later.</string>
     <string name="check_in_error_message">Check-in date must be before Check-out date. Choose Check-in date before</string>
     <string name="check_out_error_message">Check-out date must be after Check-in date. Choose Check-out date after</string>
     <string name="select_check_in_check_out">Select Check-in date and Check-out date</string>
@@ -76,5 +78,8 @@
     <string name="hotel_updated_successfully_message">Hotel was updated successfully</string>
     <string name="hotel_problem_during_update_message">There was a problem during update</string>
     <string name="require_valid_property_code">Hotel requires valid property code</string>
+    <string name="error_message_hotel_id_broadcast">There is a problem with the data from this hotel, please choose a different one.</string>
+    <string name="contact_hotel_price_details_message">** Contact hotel for price details.</string>
+    <string name="contact_hotel_for_room_price_message">** Contact hotel for room price.</string>
 
 </resources>

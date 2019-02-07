@@ -11,6 +11,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "API_KEY", API_KEY)
+        buildConfigField("String", "API_KEY_AMADEUS", API_KEY_AMADEUS)
+        buildConfigField("String", "API_SECRET", API_SECRET)
     }
     buildTypes {
         release {
@@ -28,6 +30,7 @@ configurations {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
@@ -35,11 +38,26 @@ dependencies {
     implementation 'com.android.support:support-media-compat:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.android.support:exifinterface:27.1.1'
-    implementation 'com.opencsv:opencsv:4.1'
+
+    //Constraint Layout
     implementation 'com.android.support.constraint:constraint-layout:1.1.1'
+
+    //OpenCSV
+    implementation 'com.opencsv:opencsv:4.1'
+
+    //Volley
     implementation 'com.android.volley:volley:1.1.0'
+
+    //Google Play Services
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Amadeus-java
+    implementation "com.amadeus:amadeus-java:3.0.1"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

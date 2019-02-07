@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm;
+package com.apps.dbm.traveldbm.activities;
 
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
@@ -24,6 +24,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.apps.dbm.traveldbm.AmadeusService;
+import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.adapter.HotelAdapter;
 import com.apps.dbm.traveldbm.classes.Hotel;
 import com.apps.dbm.traveldbm.classes.Room;
@@ -102,6 +104,10 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
                 recyclerView.setVisibility(View.GONE);
                 mEmptyTextView.setText(getString(R.string.no_hotels_found_message));
             }
+        } else if (intent.hasExtra("error_hotel_id")) {
+            mEmptyTextView.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+            mEmptyTextView.setText(intent.getStringExtra("error_hotel_id"));
         }
     }
 
@@ -123,7 +129,7 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         if(typeAction.equals("details")){
             mProgressBar.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-            Intent serviceIntent = new Intent(HotelResultsActivity.this,HotelRequestService.class);
+            Intent serviceIntent = new Intent(HotelResultsActivity.this, AmadeusService.class);
             serviceIntent.setAction("rooms_data");
             serviceIntent.putExtra("hotel_property_code",listHotels.get(clickedItemIndex).getHotelPropertyCode());
             serviceIntent.putExtra("check_in_date",listHotels.get(clickedItemIndex).getHotelCheckInDate());
@@ -141,7 +147,12 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_ADDRESS, listHotels.get(clickedItemIndex).getHotelAddress());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_CITY, listHotels.get(clickedItemIndex).getHotelCity());
                 values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_COUNTRY, listHotels.get(clickedItemIndex).getHotelCountry());
-                values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE, listHotels.get(clickedItemIndex).getHotelPhone());
+                if(listHotels.get(clickedItemIndex).getHotelPhone() != null){
+                    values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE, listHotels.get(clickedItemIndex).getHotelPhone());
+                } else {
+                    values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_PHONE, "");
+                }
+
                 if(listHotels.get(clickedItemIndex).getHotelURL() != null) {
                     values.put(CollectionContract.CollectionEntry.COLUMN_HOTEL_URL, listHotels.get(clickedItemIndex).getHotelURL());
                 } else{
@@ -231,13 +242,28 @@ public class HotelResultsActivity extends AppCompatActivity implements HotelAdap
         //Get rooms data of a particular hotel once the service HotelRequestService has finished
         //and start HotelDetailActivity passing in that data
         public void onReceive(Context context, Intent intent) {
-            mProgressBar.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            List<Room> roomList = intent.getParcelableArrayListExtra("room_list");
-            Intent intentDetail = new Intent(HotelResultsActivity.this, HotelDetailActivity.class);
-            intentDetail.putExtra("hotel_selected",listHotels.get(indexSelected));
-            intentDetail.putExtra("room_list",(ArrayList<Room>) roomList);
-            startActivity(intentDetail);
+            if(intent.hasExtra("room_list")) {
+                mProgressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                //Get room list
+                List<Room> roomList = intent.getParcelableArrayListExtra("room_list");
+                Intent intentDetail = new Intent(HotelResultsActivity.this, HotelDetailActivity.class);
+                intentDetail.putExtra("hotel_selected", listHotels.get(indexSelected));
+                intentDetail.putExtra("room_list", (ArrayList<Room>) roomList);
+                startActivity(intentDetail);
+            } else if (intent.hasExtra("error_server_broadcast")){
+                mProgressBar.setVisibility(View.GONE);
+                mEmptyTextView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                mEmptyTextView.setText(intent.getStringExtra("error_server_broadcast"));
+            } else if(intent.hasExtra("error_server_hotel_id_broadcast")){
+                //Error in the response in the hotel id
+                mProgressBar.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                Intent errorIntent = new Intent(HotelResultsActivity.this, HotelDetailActivity.class);
+                errorIntent.putExtra("error_hotel_id",intent.getStringExtra("error_server_hotel_id_broadcast"));
+                startActivity(errorIntent);
+            }
         }
     }
 }

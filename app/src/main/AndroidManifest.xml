@@ -18,6 +18,8 @@
 
         <service android:name=".service.HotelRequestService" />
 
+        <service android:name=".AmadeusService" />
+
         <provider
             android:name=".data.CollectionProvider"
             android:authorities="com.apps.dbm.traveldbm"
@@ -31,7 +33,7 @@
                 android:resource="@xml/widget_provider_info" />
         </receiver>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,25 +41,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".activities.SearchActivity"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.dbm.traveldbm.MainActivity" />
+                android:value="com.apps.dbm.traveldbm.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".HotelResultsActivity"
-            android:parentActivityName=".SearchActivity">
+            android:name=".activities.HotelResultsActivity"
+            android:parentActivityName=".activities.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.dbm.traveldbm.SearchActivity" />
+                android:value="com.apps.dbm.traveldbm.activities.SearchActivity" />
         </activity>
         <activity
-            android:name=".HotelDetailActivity"
-            android:parentActivityName=".HotelResultsActivity">
+            android:name=".activities.HotelDetailActivity"
+            android:parentActivityName=".activities.HotelResultsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.dbm.traveldbm.HotelResultsActivity" />
+                android:value="com.apps.dbm.traveldbm.activities.HotelResultsActivity" />
         </activity>
 
 
@@ -65,11 +67,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/MAPS_API_KEY"/>
 
-        <activity android:name=".FavoritesActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.FavoritesActivity"
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.apps.dbm.traveldbm.MainActivity" />
+                android:value="com.apps.dbm.traveldbm.activities.MainActivity" />
         </activity>
 
         <service

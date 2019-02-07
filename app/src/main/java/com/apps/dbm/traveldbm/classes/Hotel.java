@@ -135,4 +135,12 @@ public class Hotel implements Parcelable {
     public String getHotelCheckInDate(){return hotelCheckInDate;}
 
     public String getHotelCheckOutDate(){return hotelCheckOutDate;}
+
+    public void setHotelCheckInDate(String hotelCheckInDate) {
+        this.hotelCheckInDate = hotelCheckInDate;
+    }
+
+    public void setHotelCheckOutDate(String hotelCheckOutDate) {
+        this.hotelCheckOutDate = hotelCheckOutDate;
+    }
 }
