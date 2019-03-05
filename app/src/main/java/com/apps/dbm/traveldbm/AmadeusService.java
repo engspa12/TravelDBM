@@ -209,7 +209,7 @@ public class AmadeusService extends IntentService {
                     }
 
                     listOfHotels.add(new Hotel(hotelPropertyCode, hotelName, hotelLatitude, hotelLongitude, hotelCompleteAddress,
-                            hotelMinPrice, hotelCity, hotelCountry, hotelPhone, null, hotelAmenities, checkInDate, checkOutDate));
+                            hotelMinPrice, hotelCity, hotelCountry, hotelPhone, null, hotelAmenities.replace("_"," ").toLowerCase(), checkInDate, checkOutDate));
                 }
 
                 sendHotelDataToActivity();
