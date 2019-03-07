@@ -32,7 +32,7 @@ src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/
 
 ## Next Steps
 
-#### Once you have both API keys (Google Maps key and Amadeus key), you can proceed to clone the project. DON'T START ANDROID STUDIO YET. After the project is cloned and before entering Android Studio, navigate to the project location and create a file called ***keys.xml*** in the values folder (app/src/main/res/values). In this file add a string resource named MAPS_API_KEY with the Google Maps API key. Follow the example below:
+#### Once you have both API keys (Google Maps key and Amadeus key), you can proceed to clone the project. DO NOT START ANDROID STUDIO YET. After the project is cloned and before entering Android Studio, navigate to the project location and create a file called ***keys.xml*** in the values folder (app/src/main/res/values). In this file add a string resource named MAPS_API_KEY with the Google Maps API key. Follow the example below:
 
 ```
 <resources>
