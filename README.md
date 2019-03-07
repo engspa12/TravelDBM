@@ -25,14 +25,14 @@ src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/
 
 ###### https://developer.android.com/studio/
 
-#### Additionally, this application uses the Google Maps API and the Travel Innovation Sandbox API. Therefore, in order to use TravelDBM, you will need both API keys:
+#### Additionally, this application uses the Google Maps and Amadeus APIs. Therefore, in order to use TravelDBM, you will need both API keys:
 
 ###### https://console.developers.google.com/ (for Google Maps API key)
 ###### https://developers.amadeus.com/ (create an account and follow the instructions to generate an Amadeus API KEY and Amadeus KEY SECRET)
 
 ## Next Steps
 
-#### Once you have both API keys (Google Maps key and Travel Innovation Sandbox key), you can proceed to clone the project. DON'T START ANDROID STUDIO YET. After the project is cloned and before entering Android Studio, navigate to the project location and create a file called ***keys.xml*** in the values folder (app/src/main/res/values). In this file add a string resource named MAPS_API_KEY with the Google Maps API key. Follow the example below:
+#### Once you have both API keys (Google Maps key and Amadeus key), you can proceed to clone the project. DON'T START ANDROID STUDIO YET. After the project is cloned and before entering Android Studio, navigate to the project location and create a file called ***keys.xml*** in the values folder (app/src/main/res/values). In this file add a string resource named MAPS_API_KEY with the Google Maps API key. Follow the example below:
 
 ```
 <resources>
@@ -40,14 +40,14 @@ src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/
 </resources>
 ```
 
-#### The next step is that you create in the project directory a ***gradle.properties*** file and you need to add your Travel Innovation Sandbox API key to this file with the name API_KEY. Follow the example below:
+#### The next step is that you create in the project directory a ***gradle.properties*** file and you need to add your Amadeus API key along with your API secret (both of them can be found on the dashboard of your Amadeus account) to this file with the names API_KEY and API_SECRET. Follow the example below:
 
 ```
 API_KEY_AMADEUS = Insert your API key from Amadeus here using double quotes
 API_SECRET = Insert your API SECRET from Amadeus here using double quotes
 ```
 
-#### The API key from Travel Innovation Sandbox website will expire approximately in 30 days since its creation. After this period, an error message will appear indicating a problem with the server. To solve this, go to the Amadeus Sandbox website, request a new API key and replace it in the ***gradle.properties*** file.
+#### The API key from Amadeus website will expire approximately in 30 days since its creation. After this period, an error message will appear indicating a problem with the server. To solve this, go to your Amadeus account, request a new API key and replace it in the ***gradle.properties*** file.
 
 #### Finally, you can start Android Studio, import and build your project and install it on your Android device.
 
