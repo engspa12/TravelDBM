@@ -1,6 +1,6 @@
 # TravelDBM
 
-#### TravelDBM is an Android app for searching hotels in a determined city. It will help you find hotels by giving the name of the city and the check-in and check-out dates.
+#### TravelDBM is an Android app for searching hotels in a determined city. Introduce the city name along with the check-in and check-out dates to discover available hotel options for your stay.
 
 #### You can save hotels as favorites, share hotel information with family and friends, and see hotel details as room prices, services, location, contact information and so on.
 
