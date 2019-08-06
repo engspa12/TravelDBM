@@ -10,16 +10,11 @@
 
 </br>
 
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F0.png?alt=media&token=a3c939df-eb1c-4184-bf3a-cb90e16345a8" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F1.png?alt=media&token=3ca97aff-5100-4d8b-b9dd-3289e250c8e9" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F2.png?alt=media&token=ac984bd1-3de2-47ea-8d24-62bb23e6a328" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F3.png?alt=media&token=927fd20f-d754-4506-8297-902fc0c94d55" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F4.png?alt=media&token=79b289d1-f8a2-44ca-878e-f0bd66a5def4" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F5.png?alt=media&token=84f5a1a0-68e0-46ef-9936-e27365e0ce37" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F6.png?alt=media&token=83e35cad-d9ed-405f-a321-80ae0aed6f41" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F7.png?alt=media&token=034972d7-57d1-4ae9-a92c-a7e3098a4b63" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F8.png?alt=media&token=95b9982f-039a-4ba8-ba8c-d8cf4d11afe3" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F9.png?alt=media&token=022d94f9-e83e-41cc-ae5e-12a1c9fe14a5" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F0.png?alt=media&token=a3c939df-eb1c-4184-bf3a-cb90e16345a8" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F1.png?alt=media&token=3ca97aff-5100-4d8b-b9dd-3289e250c8e9" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F2.png?alt=media&token=ac984bd1-3de2-47ea-8d24-62bb23e6a328" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F3.png?alt=media&token=927fd20f-d754-4506-8297-902fc0c94d55" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F4.png?alt=media&token=79b289d1-f8a2-44ca-878e-f0bd66a5def4" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F5.png?alt=media&token=84f5a1a0-68e0-46ef-9936-e27365e0ce37" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F6.png?alt=media&token=83e35cad-d9ed-405f-a321-80ae0aed6f41" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F7.png?alt=media&token=034972d7-57d1-4ae9-a92c-a7e3098a4b63" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F8.png?alt=media&token=95b9982f-039a-4ba8-ba8c-d8cf4d11afe3" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/TravelDBM%2F9.png?alt=media&token=022d94f9-e83e-41cc-ae5e-12a1c9fe14a5" width="420" height="692" style="margin:4px">
 
 ## Getting Started
 
