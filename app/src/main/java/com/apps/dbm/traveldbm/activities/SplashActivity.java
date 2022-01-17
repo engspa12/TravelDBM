@@ -2,7 +2,7 @@ package com.apps.dbm.traveldbm.activities;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.apps.dbm.traveldbm.R;
