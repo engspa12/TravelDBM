@@ -27,7 +27,7 @@
             android:value="@integer/google_play_services_version" />
 
         <service android:name=".service.HotelRequestService" />
-        <service android:name=".AmadeusService" />
+        <service android:name=".service.AmadeusService" />
 
         <provider
             android:name=".data.CollectionProvider"

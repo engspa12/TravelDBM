@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.adapter.FavoriteAdapter;
-import com.apps.dbm.traveldbm.classes.Favorite;
+import com.apps.dbm.traveldbm.domain.Favorite;
 import com.apps.dbm.traveldbm.data.CollectionContract;
 import com.apps.dbm.traveldbm.widget.FavoriteAppWidgetProvider;
 

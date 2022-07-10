@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.adapter.RoomAdapter;
-import com.apps.dbm.traveldbm.classes.Hotel;
-import com.apps.dbm.traveldbm.classes.Room;
+import com.apps.dbm.traveldbm.domain.Hotel;
+import com.apps.dbm.traveldbm.domain.Room;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm.classes;
+package com.apps.dbm.traveldbm.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;

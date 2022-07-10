@@ -15,8 +15,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.apps.dbm.traveldbm.BuildConfig;
 import com.apps.dbm.traveldbm.R;
-import com.apps.dbm.traveldbm.classes.Hotel;
-import com.apps.dbm.traveldbm.classes.Room;
+import com.apps.dbm.traveldbm.domain.Hotel;
+import com.apps.dbm.traveldbm.domain.Room;
 
 import org.json.JSONArray;
 import org.json.JSONException;

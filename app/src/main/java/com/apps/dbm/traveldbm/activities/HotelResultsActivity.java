@@ -24,11 +24,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.apps.dbm.traveldbm.AmadeusService;
+import com.apps.dbm.traveldbm.service.AmadeusService;
 import com.apps.dbm.traveldbm.R;
 import com.apps.dbm.traveldbm.adapter.HotelAdapter;
-import com.apps.dbm.traveldbm.classes.Hotel;
-import com.apps.dbm.traveldbm.classes.Room;
+import com.apps.dbm.traveldbm.domain.Hotel;
+import com.apps.dbm.traveldbm.domain.Room;
 import com.apps.dbm.traveldbm.data.CollectionContract;
 import com.apps.dbm.traveldbm.widget.FavoriteAppWidgetProvider;
 

@@ -9,7 +9,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.apps.dbm.traveldbm.R;
-import com.apps.dbm.traveldbm.classes.Favorite;
+import com.apps.dbm.traveldbm.domain.Favorite;
 import com.apps.dbm.traveldbm.data.CollectionContract;
 
 import java.util.ArrayList;

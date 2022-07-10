@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.apps.dbm.traveldbm.R;
-import com.apps.dbm.traveldbm.classes.Room;
+import com.apps.dbm.traveldbm.domain.Room;
 
 import java.util.List;
 

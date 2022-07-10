@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm.classes;
+package com.apps.dbm.traveldbm.domain;
 
 public class City {
 

@@ -1,4 +1,4 @@
-package com.apps.dbm.traveldbm;
+package com.apps.dbm.traveldbm.service;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -10,8 +10,10 @@ import com.amadeus.Amadeus;
 import com.amadeus.Params;
 import com.amadeus.resources.HotelOffer;
 
-import com.apps.dbm.traveldbm.classes.Hotel;
-import com.apps.dbm.traveldbm.classes.Room;
+import com.apps.dbm.traveldbm.BuildConfig;
+import com.apps.dbm.traveldbm.R;
+import com.apps.dbm.traveldbm.domain.Hotel;
+import com.apps.dbm.traveldbm.domain.Room;
 
 import java.util.ArrayList;
 

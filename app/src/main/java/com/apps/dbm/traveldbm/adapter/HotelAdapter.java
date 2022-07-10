@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.apps.dbm.traveldbm.R;
-import com.apps.dbm.traveldbm.classes.Hotel;
+import com.apps.dbm.traveldbm.domain.Hotel;
 
 import java.util.List;
 
